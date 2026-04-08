@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdullah Jubayer — Calligraphy & Design</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=Montserrat:wght@200;300;400;500;700;800&display=swap"
+        rel="stylesheet">
+
+
+    <!-- SEO and Performance Meta Tags -->
+    <meta name="description"
+        content="Abdullah Jubayer — Professional Calligraphy & Design Portfolio. Expert in Logo Design, Branding, Packaging, and Artworks.">
+    <meta name="keywords"
+        content="Calligraphy, Design, Logo Design, Brand Identity, Packaging Design, Abdullah Jubayer">
+    <meta property="og:title" content="Abdullah Jubayer — Calligraphy & Design">
+    <meta property="og:description"
+        content="Professional Calligraphy & Design Portfolio. Explore Branding, Packaging, and Artworks.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://huroofstudio.com/assets/og-image.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <style>
+        /* ── INLINE CRITICAL CSS FOR INSTANT LOADER PAIN ── */
+        .loader-wrapper {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background-color: #0b0c10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .loader-wrapper.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .arabic-loader {
+            position: relative;
+            width: 200px;
+            max-width: 50vw;
+            aspect-ratio: 810/1138;
+        }
+
+        .loader-svg-outline,
+        .loader-svg-fill {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .loader-svg-outline path {
+            fill: transparent;
+            stroke: #c9a84c;
+            stroke-width: 6px;
+        }
+
+        .loader-fill-wrapper {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        .squircle-rise {
+            animation: riseUp 10s ease-out forwards;
+        }
+
+        .squircle-spin {
+            transform-origin: 405px 2000px;
+            animation: spinWave linear infinite;
+        }
+
+        .spin-slow {
+            animation-duration: 7s;
+        }
+
+        .spin-mid {
+            animation-duration: 9s;
+        }
+
+        .spin-fast {
+            animation-duration: 12s;
+        }
+
+        @keyframes riseUp {
+            0% {
+                transform: translateY(1200px);
+            }
+
+            100% {
+                transform: translateY(-200px);
+            }
+        }
+
+        @keyframes spinWave {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- ── SITE LOADER ── -->
+    <div id="siteLoader" class="loader-wrapper">
+        <div class="arabic-loader">
+            <svg class="loader-svg-outline" viewBox="0 0 810.09 1138.38">
+                <path
+                    d="M163.82,463.77c11.88,2.94,23.89,5.03,36.03,6.34,47.05,5.07,94.23,5.03,141.43,3.31,48.5-1.76,96.98-4.18,145.49-5.89,31.62-1.11,63.27-1.24,94.87.77,21.04,1.34,42.09,3.06,62.66,7.96,46.35,11.06,85.61,33.83,115.67,71.34,20.76,25.9,34.19,55.4,42.08,87.5,7.74,31.5,9.61,63.42,6.83,95.7-6.47,75.02-34.32,141.91-77.45,202.86-31.71,44.82-70.56,82.46-115.19,114.51-48.54,34.86-101.46,60.03-159.13,75.33-41.84,11.1-84.4,16.38-127.68,14.5-62.33-2.71-120.2-19.66-172.12-55.07-46.15-31.47-79.9-73.24-103.01-123.87-15.24-33.38-25.16-68.36-31.29-104.48-6.71-39.6-8.8-79.48-6.78-119.56,1.28-25.27,4.97-50.26,9.6-75.12,8.32-44.73,21.17-88.09,39.24-129.87,6.84-15.83,14.4-31.3,22.68-46.43,2.51-4.58,2.68-3.81-1.04-7.52-17.82-17.8-33.21-37.63-48.44-57.6-1.01-1.32-1.82-2.8-2.62-4.26-.73-1.34-.33-2.71.55-3.75,1.01-1.19,2.47-1.96,4.03-1.28,2.14.93,4.22,2.03,6.2,3.26,14.21,8.83,28.52,17.49,43.62,24.75,5.42,2.61,10.89,5.14,16.38,7.61,3.6,1.62,3.68,1.57,5.92-1.8,10.12-15.2,21.01-29.82,32.55-43.97,16.86-20.66,35.34-39.79,54.53-58.26.84-.81,1.69-1.62,2.52-2.45,2.65-2.65,2.68-2.69-.31-5.24-13.66-11.61-27.93-22.41-42.7-32.56-25.09-17.25-50.78-33.63-75.59-51.3-16.24-11.57-31.99-23.74-46.07-37.94-12.36-12.46-22.91-26.19-29.76-42.5C-.1,150.7-1.42,131.97,1.29,112.65c1.76-12.52,4.54-24.63,9.82-36.15,11.53-25.18,30.44-42.82,55.25-54.51,17.08-8.05,35.15-12.81,53.68-15.92C153.69.44,187.64-.25,221.64.06c30.13.28,60.23,1.53,90.35,2.52,16.06.53,32.13.86,48.18,1.42,32.12,1.12,64.23,2.37,96.34,3.49,15.22.53,30.45,1.01,45.68,1.29,62.42,1.15,124.85,2.21,187.27,3.32,13.39.24,26.78.56,40.16.85,5.47.12,6.45,1.54,4.52,6.87-7.46,20.6-14.98,41.17-22.47,61.76-3.26,8.96-6.6,17.88-9.7,26.9-1.06,3.07-2.84,4.96-5.7,6.49-54.81,29.44-110.06,58.05-164.64,87.92-62.54,34.22-124.14,70.02-183.5,109.57-21.87,14.57-43.38,29.65-64.48,45.31-1.71,1.27-3.47,2.17-2.6,5.15,3.99,13.71,4.99,27.96,7.25,41.99.45,2.81.93,5.61,1.25,8.44.24,2.11-.23,4.03-2.44,5.01-2.03.9-3.67-.11-5-1.36-2.06-1.95-3.95-4.09-5.8-6.25-7.38-8.67-14.74-17.35-22.03-26.08-1.54-1.85-2.71-2.44-4.89-.67-23.01,18.67-46.01,37.36-67.09,58.24-6.06,6-11.61,12.51-17.37,18.81-.54.59-1.24,1.16-1.11,2.75ZM127.52,511.49c-1.53.73-1.99,2.07-2.69,3.16-9.82,15.39-18.66,31.33-26.49,47.83-21.2,44.68-34.47,91.6-40.35,140.7-3.24,27.04-4.1,54.04-.86,81.13,3.71,31.04,12.09,60.74,26.73,88.38,35.47,66.95,89.47,113.05,160.03,139.74,50.23,19,102.45,23.54,155.63,18.93,29.58-2.56,58.61-8.26,87.04-16.82,84.3-25.39,156.56-70.13,215.81-135.36,56.16-61.82,100.16-147.3,45.69-225.83-13.84-19.95-32.1-34.87-53.21-46.49-21.56-11.86-44.6-19.78-68.51-25.21-25.88-5.88-52.28-7.68-78.69-9.02-32.28-1.64-64.6-1.23-96.91-1.2-46.71.04-93.41.08-140.01-3.83-30.22-2.54-60.15-6.89-89.58-14.3-32.88-8.27-63.85-20.89-91.66-40.62-.67-.47-1.39-.85-1.99-1.21ZM252.66,293.09c1.02-.76,2.11-1.52,3.13-2.35,53.54-43.95,110.94-82.26,170.66-117.21,34.36-20.1,69.33-39.08,104.63-57.45,1.45-.75,3.43-1.05,4.23-3.35-1.23,0-2.06,0-2.88,0-62.08.05-124.16-.47-186.19-3.28-19.56-.89-39.14-.95-58.71-1.41-38.31-.9-76.62-2.05-114.94-1.39-24.76.43-49.5,1.36-73.95,5.86-12.37,2.28-24.45,5.52-35.73,11.26-1.83.93-3.82,1.74-5.28,3.33,1.41,1.71,3.15,2.42,4.72,3.33,32.84,19.11,64.45,40.11,95.98,61.28,38.09,25.58,68.14,58.46,91.62,97.64.76,1.27,1.25,2.76,2.72,3.73Z" />
+            </svg>
+            <div class="loader-fill-wrapper">
+                <svg class="loader-svg-fill" viewBox="0 0 810.09 1138.38">
+                    <defs>
+                        <clipPath id="letterClip">
+                            <path
+                                d="M163.82,463.77c11.88,2.94,23.89,5.03,36.03,6.34,47.05,5.07,94.23,5.03,141.43,3.31,48.5-1.76,96.98-4.18,145.49-5.89,31.62-1.11,63.27-1.24,94.87.77,21.04,1.34,42.09,3.06,62.66,7.96,46.35,11.06,85.61,33.83,115.67,71.34,20.76,25.9,34.19,55.4,42.08,87.5,7.74,31.5,9.61,63.42,6.83,95.7-6.47,75.02-34.32,141.91-77.45,202.86-31.71,44.82-70.56,82.46-115.19,114.51-48.54,34.86-101.46,60.03-159.13,75.33-41.84,11.1-84.4,16.38-127.68,14.5-62.33-2.71-120.2-19.66-172.12-55.07-46.15-31.47-79.9-73.24-103.01-123.87-15.24-33.38-25.16-68.36-31.29-104.48-6.71-39.6-8.8-79.48-6.78-119.56,1.28-25.27,4.97-50.26,9.6-75.12,8.32-44.73,21.17-88.09,39.24-129.87,6.84-15.83,14.4-31.3,22.68-46.43,2.51-4.58,2.68-3.81-1.04-7.52-17.82-17.8-33.21-37.63-48.44-57.6-1.01-1.32-1.82-2.8-2.62-4.26-.73-1.34-.33-2.71.55-3.75,1.01-1.19,2.47-1.96,4.03-1.28,2.14.93,4.22,2.03,6.2,3.26,14.21,8.83,28.52,17.49,43.62,24.75,5.42,2.61,10.89,5.14,16.38,7.61,3.6,1.62,3.68,1.57,5.92-1.8,10.12-15.2,21.01-29.82,32.55-43.97,16.86-20.66,35.34-39.79,54.53-58.26.84-.81,1.69-1.62,2.52-2.45,2.65-2.65,2.68-2.69-.31-5.24-13.66-11.61-27.93-22.41-42.7-32.56-25.09-17.25-50.78-33.63-75.59-51.3-16.24-11.57-31.99-23.74-46.07-37.94-12.36-12.46-22.91-26.19-29.76-42.5C-.1,150.7-1.42,131.97,1.29,112.65c1.76-12.52,4.54-24.63,9.82-36.15,11.53-25.18,30.44-42.82,55.25-54.51,17.08-8.05,35.15-12.81,53.68-15.92C153.69.44,187.64-.25,221.64.06c30.13.28,60.23,1.53,90.35,2.52,16.06.53,32.13.86,48.18,1.42,32.12,1.12,64.23,2.37,96.34,3.49,15.22.53,30.45,1.01,45.68,1.29,62.42,1.15,124.85,2.21,187.27,3.32,13.39.24,26.78.56,40.16.85,5.47.12,6.45,1.54,4.52,6.87-7.46,20.6-14.98,41.17-22.47,61.76-3.26,8.96-6.6,17.88-9.7,26.9-1.06,3.07-2.84,4.96-5.7,6.49-54.81,29.44-110.06,58.05-164.64,87.92-62.54,34.22-124.14,70.02-183.5,109.57-21.87,14.57-43.38,29.65-64.48,45.31-1.71,1.27-3.47,2.17-2.6,5.15,3.99,13.71,4.99,27.96,7.25,41.99.45,2.81.93,5.61,1.25,8.44.24,2.11-.23,4.03-2.44,5.01-2.03.9-3.67-.11-5-1.36-2.06-1.95-3.95-4.09-5.8-6.25-7.38-8.67-14.74-17.35-22.03-26.08-1.54-1.85-2.71-2.44-4.89-.67-23.01,18.67-46.01,37.36-67.09,58.24-6.06,6-11.61,12.51-17.37,18.81-.54.59-1.24,1.16-1.11,2.75ZM127.52,511.49c-1.53.73-1.99,2.07-2.69,3.16-9.82,15.39-18.66,31.33-26.49,47.83-21.2,44.68-34.47,91.6-40.35,140.7-3.24,27.04-4.1,54.04-.86,81.13,3.71,31.04,12.09,60.74,26.73,88.38,35.47,66.95,89.47,113.05,160.03,139.74,50.23,19,102.45,23.54,155.63,18.93,29.58-2.56,58.61-8.26,87.04-16.82,84.3-25.39,156.56-70.13,215.81-135.36,56.16-61.82,100.16-147.3,45.69-225.83-13.84-19.95-32.1-34.87-53.21-46.49-21.56-11.86-44.6-19.78-68.51-25.21-25.88-5.88-52.28-7.68-78.69-9.02-32.28-1.64-64.6-1.23-96.91-1.2-46.71.04-93.41.08-140.01-3.83-30.22-2.54-60.15-6.89-89.58-14.3-32.88-8.27-63.85-20.89-91.66-40.62-.67-.47-1.39-.85-1.99-1.21ZM252.66,293.09c1.02-.76,2.11-1.52,3.13-2.35,53.54-43.95,110.94-82.26,170.66-117.21,34.36-20.1,69.33-39.08,104.63-57.45,1.45-.75,3.43-1.05,4.23-3.35-1.23,0-2.06,0-2.88,0-62.08.05-124.16-.47-186.19-3.28-19.56-.89-39.14-.95-58.71-1.41-38.31-.9-76.62-2.05-114.94-1.39-24.76.43-49.5,1.36-73.95,5.86-12.37,2.28-24.45,5.52-35.73,11.26-1.83.93-3.82,1.74-5.28,3.33,1.41,1.71,3.15,2.42,4.72,3.33,32.84,19.11,64.45,40.11,95.98,61.28,38.09,25.58,68.14,58.46,91.62,97.64.76,1.27,1.25,2.76,2.72,3.73Z" />
+                        </clipPath>
+                    </defs>
+                    <!-- Apply the clip Path to bound the entire liquid filling inside the letter -->
+                    <g clip-path="url(#letterClip)">
+                        <g class="squircle-rise">
+                            <!-- Layered Liquid Waves (Very rounded to lower the wave height) -->
+                            <rect class="squircle-spin spin-slow" x="-1595" y="0" width="4000" height="4000" rx="1920"
+                                fill="var(--gold)" opacity="0.4" />
+                            <rect class="squircle-spin spin-mid" x="-1595" y="0" width="4000" height="4000" rx="1880"
+                                fill="var(--gold)" opacity="0.6" />
+                            <rect class="squircle-spin spin-fast" x="-1595" y="0" width="4000" height="4000" rx="1840"
+                                fill="var(--gold)" opacity="1" />
+                        </g>
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── LOGO ── -->
+    <div class="logo"><img src="assets/revisions/huroof-studio-logo-02.svg" alt="Huroof Studio"></div>
+
+    <!-- ── MOBILE MENU BTN ── -->
+    <div class="mobile-menu-btn">
+        <span></span><span></span><span></span>
+    </div>
+
+    <!-- ── START BUTTON ── -->
+    <a href="#contact" class="start-project-btn">Start a Project</a>
+
+    <!-- ── RIGHT NAV ── -->
+    <nav class="right-nav" id="rightNav">
+        <a href="#home" data-target="home">Home</a>
+        <a href="#works" data-target="works">Work</a>
+        <a href="#outcomes" data-target="outcomes">Outcomes</a>
+        <a href="#about" data-target="about">About</a>
+        <a href="#contact" data-target="contact">Contact</a>
+    </nav>
+
+    <!-- ── LEFT SOCIALS ── -->
+    <aside class="left-socials">
+        <a href="works.html" title="Portfolio">Portfolio</a>
+        <div class="divider"></div>
+        <a href="https://behance.net/jubayerdcd" title="Behance" target="_blank" rel="noopener noreferrer">Behance</a>
+        <a href="https://instagram.com/jubayerdcd" title="Instagram" target="_blank"
+            rel="noopener noreferrer">Instagram</a>
+        <a href="https://facebook.com/jubayerdcd" title="Facebook" target="_blank"
+            rel="noopener noreferrer">Facebook</a>
+    </aside>
+
+
+
+    <!-- ── SCROLLABLE SECTIONS ── -->
+    <div class="scroller" id="scroller">
+
+        <!-- 1. HOME -->
+        <section id="home" data-pos="home">
+        </section>
+
+        <!-- 2. HERO ABOUT -->
+        <section id="hero-about" data-pos="hero-about">
+            <div class="about-content">
+                <div class="social-proof">
+                    <img src="assets/revisions/client-logos/client-logos.svg" loading="lazy" alt="Client Logos">
+                    Trusted by 70+ Clients
+                </div>
+                <h1>Make Your Brand Memorable<br>With Artistic Visuals</h1>
+                <!-- Mobile button -->
+                <a href="#contact" class="start-project-btn-mobile">Start a Project</a>
+            </div>
+
+            <!-- ── ROTATING ANIMATION (globally fixed on desktop, relative on mobile) ── -->
+            <div id="animWrapper" class="pos-home">
+                <div class="layer-wrapper layer-bottom-wrapper">
+                    <img src="assets/animation-layers/animation-bottom-layer.webp" alt="" class="layer layer-bottom">
+                </div>
+                <div class="layer-wrapper layer-center-wrapper">
+                    <img src="assets/animation-layers/animation-center-layer.webp" alt="" class="layer layer-center">
+                </div>
+                <div class="layer-wrapper layer-top-wrapper">
+                    <img src="assets/animation-layers/animation-top-layer.webp" alt="" class="layer layer-top">
+                </div>
+            </div>
+        </section>
+
+        <section id="works" data-pos="works">
+            <div class="works-content">
+                <div class="works-inner">
+                    <div class="projects-header-wrapper">
+                        <div class="projects-header">PROJECTS:</div>
+                        <a href="works.html" class="see-all-header-btn">See All &rarr;</a>
+                    </div>
+
+                    <div class="category-title">Logo And Branding:</div>
+                    <div class="projects-grid">
+                        <div class="project-card">
+                            <div class="thumb"><img src="assets/revisions/works/logo-branding/jahabi-logo-and-brand-identity.webp"
+                                    loading="lazy" alt="Jahabi Branding"></div>
+                            <div class="info">
+                                <div class="cat">Branding</div>
+                                <div class="title">Jahabi Brand Identity</div>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="thumb"><img
+                                    src="assets/revisions/works/logo-branding/madinatul-uloom-jpg-logo-and-brand-identity.webp" loading="lazy"
+                                    alt="Madinatul Uloom"></div>
+                            <div class="info">
+                                <div class="cat">Branding</div>
+                                <div class="title">Madinatul Uloom</div>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="thumb"><img src="assets/revisions/works/logo-branding/taurex-logo-and-brand-identity.webp"
+                                    loading="lazy" alt="Taurex Logo">
+                            </div>
+                            <div class="info">
+                                <div class="cat">Logo Design</div>
+                                <div class="title">Taurex Logo</div>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="thumb"><img src="assets/revisions/works/logo-branding/tote-bag-mockup-logo-and-brand-identity.webp"
+                                    loading="lazy" alt="Tote Bag Mockup"></div>
+                            <div class="info">
+                                <div class="cat">Brand Merchandise</div>
+                                <div class="title">Tote Bag Mockup</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="works.html" class="see-more-btn">See more branding works</a>
+
+                    <div class="category-title">Packaging</div>
+                    <div class="projects-grid">
+                        <div class="project-card">
+                            <div class="thumb"><img src="assets/revisions/works/packaging-works/mailer-box-mockup-1-packaging-design.webp"
+                                    loading="lazy" alt="Mailer Box 1"></div>
+                            <div class="info">
+                                <div class="cat">Packaging</div>
+                                <div class="title">Mailer Box Design</div>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="thumb"><img
+                                    src="assets/revisions/works/packaging-works/2-mailer-box-mockup-2-packaging-design.webp" loading="lazy"
+                                    alt="Mailer Box 2"></div>
+                            <div class="info">
+                                <div class="cat">Packaging</div>
+                                <div class="title">Premium Mailer Box</div>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="thumb"><img src="assets/revisions/works/packaging-works/artboard-1-packaging-design.webp"
+                                    loading="lazy" alt="Packaging Artboard"></div>
+                            <div class="info">
+                                <div class="cat">Packaging</div>
+                                <div class="title">Label & Wrap Design</div>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="thumb"><img src="assets/revisions/works/packaging-works/2-packaging-design.webp" loading="lazy"
+                                    alt="Packaging Design">
+                            </div>
+                            <div class="info">
+                                <div class="cat">Packaging</div>
+                                <div class="title">Product Packaging</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="works.html" class="see-more-btn">See more packaging</a>
+
+                    <div class="category-title">Artworks</div>
+                    <div class="projects-grid">
+                        <div class="project-card">
+                            <div class="thumb"><img
+                                    src="assets/revisions/works/Artworks/original-480892d2c8ad067688c06cdc8cd3d434.webp"
+                                    loading="lazy" alt="Artwork 1"></div>
+                            <div class="info">
+                                <div class="cat">Calligraphy Art</div>
+                                <div class="title">Calligraphy Artwork</div>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="thumb"><img
+                                    src="assets/revisions/works/Artworks/original-64ee5adf93e34bb1771260d0e5f49c03.webp"
+                                    loading="lazy" alt="Artwork 2"></div>
+                            <div class="info">
+                                <div class="cat">Calligraphy Art</div>
+                                <div class="title">Arabic Typography</div>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="thumb"><img
+                                    src="assets/revisions/works/Artworks/original-723758df9d8408b9dad7002569a37d38.webp"
+                                    loading="lazy" alt="Artwork 3"></div>
+                            <div class="info">
+                                <div class="cat">Calligraphy Art</div>
+                                <div class="title">Large Format Piece</div>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="thumb"><img
+                                    src="assets/revisions/works/Artworks/original-fa73f06c9bc7a2a1286b824d43ba299a.webp"
+                                    loading="lazy" alt="Artwork 4"></div>
+                            <div class="info">
+                                <div class="cat">Calligraphy Art</div>
+                                <div class="title">Statement Piece</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="works.html" class="see-more-btn">See more Artworks</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. OUTCOMES -->
+        <section id="outcomes" data-pos="outcomes">
+            <div class="outcomes-wrapper">
+                <div class="outcomes-header" style="margin-bottom: 15px;">
+                    <h2 style="font-size: 2.2rem; font-weight: 500; color: var(--gold); margin: 0; line-height: 1; letter-spacing: 0.02em;">Final Outcomes</h2>
+                    <p style="font-size: 1.05rem; color: rgba(255, 255, 255, 0.6); font-weight: 400; margin: 4px 0 0 0; letter-spacing: normal;">of our featured works</p>
+                </div>
+                <div class="carousel-container" id="outcomesCarousel">
+                    <!-- JavaScript will populate cards here -->
+                </div>
+                <div class="carousel-controls">
+                    <div class="carousel-indicators" id="outcomesIndicators">
+                        <!-- JavaScript will populate dots here -->
+                    </div>
+                    <div class="carousel-arrows">
+                        <button class="arrow-btn" id="prevCard">←</button>
+                        <button class="arrow-btn" id="nextCard">→</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- REAL ABOUT SECTION -->
+        <section id="about" data-pos="about">
+            <div class="real-about-content">
+                <h2 class="real-about-title">Made by Abdullah Jubayer, With 5+ years<br>of experience in Calligraphy & Branding</h2>
+                
+                <div class="real-about-image">
+                    <img src="../abdulah jubayer headshot.png" alt="Abdullah Jubayer" />
+                </div>
+                
+                <div class="real-about-grid">
+                    <div class="real-about-col">
+                        <h4>5+ Years of Calligraphy<br>Knowledge & Practice</h4>
+                        <p>Studying Arabic letterforms, composition, and artistic balance through continuous practice and real client work.</p>
+                    </div>
+                    <div class="real-about-col">
+                        <h4>Artist & Brand Identity<br>Designer</h4>
+                        <p>Combining Art with modern branding and strategic design to create meaningful visual identities.</p>
+                    </div>
+                    <div class="real-about-col">
+                        <h4>Trusted by 70+ Brands<br>& Entrepreneurs Worldwide</h4>
+                        <p>Worked with 70+ businesses, helped them to express their identity through the art.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. CONTACT -->
+        <section id="contact" data-pos="contact">
+            <div class="contact-modal">
+                <div class="modal-left">
+                    <h2>LETS<br>TALK</h2>
+                    <p class="mobile-subtitle">share your brief by filling out this form</p>
+                    <div class="modal-contact-info desktop-contact">
+                        <span>Email
+                            <strong>jubayerdcd@gmail.com</strong>
+                        </span>
+                        <span>whatsapp
+                            <strong>+8801623715671</strong>
+                        </span>
+                        <div class="modal-socials">
+                            <span>@jubayerdcd</span>
+                            <div class="social-icons-mini">
+                                <a href="https://behance.net/jubayerdcd" target="_blank"
+                                    rel="noopener noreferrer">Be</a>
+                                <a href="https://facebook.com/jubayerdcd" target="_blank"
+                                    rel="noopener noreferrer">f</a>
+                                <a href="https://instagram.com/jubayerdcd" target="_blank"
+                                    rel="noopener noreferrer">ig</a>
+                                <a href="https://linkedin.com/in/jubayerdcd" target="_blank"
+                                    rel="noopener noreferrer">in</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form-container">
+                    <form id="contactForm">
+                        <!-- Core hidden fields for FormSubmit API -->
+                        <input type="hidden" name="_subject" value="New Project Inquiry - Huroof Studio">
+                        <input type="hidden" name="_captcha" value="false">
+
+                        <!-- Hidden fields to sync JS-driven UI elements -->
+                        <input type="hidden" name="Services Required" id="hiddenServices" value="Logo design">
+                        <input type="hidden" name="Budget Range" id="hiddenBudget" value="500 - 1k">
+
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>What's your name?</label>
+                                <input type="text" name="Name" placeholder="Full name" required>
+                            </div>
+                            <div class="form-field">
+                                <label>What's your email?</label>
+                                <input type="email" name="Email" placeholder="Your email address" required>
+                            </div>
+                        </div>
+
+                        <div class="form-field">
+                            <label>What's your brief?</label>
+                            <textarea name="Brief Details"
+                                placeholder="Tell us about your vision. please include:&#10;&#10;The goal: What should this design achieve? (i.e. a premium rebrand, launching a new product).&#10;&#10;The audience: Who are we talking to?&#10;&#10;The vibe: Describe the style (e.g., Bold, Traditional, Minimalist).&#10;&#10;Must-haves: Any specific symbols, colors, or typographic styles we should include?"
+                                required></textarea>
+                        </div>
+
+                        <div class="form-field">
+                            <label>Services you need</label>
+                            <div class="pill-group">
+                                <div class="form-pill active">Logo design</div>
+                                <div class="form-pill">Brand identity</div>
+                                <div class="form-pill">Packaging</div>
+                                <div class="form-pill">Calligraphy art</div>
+                                <div class="form-pill">Social media</div>
+                                <div class="form-pill">Web design</div>
+                                <div class="form-pill">Other</div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Business / company name</label>
+                                <input type="text" name="Company Name" placeholder="Company name">
+                            </div>
+                            <div class="form-field">
+                                <label>Website / page link</label>
+                                <input type="text" name="Website" placeholder="www.">
+                            </div>
+                        </div>
+
+                        <div class="form-field">
+                            <label>What is your budget?</label>
+                            <div class="budget-slider-wrapper">
+                                <div class="budget-track"></div>
+                                <div class="budget-fill"></div>
+                                <div class="budget-slider-inner">
+                                    <div class="budget-dots">
+                                        <div class="budget-dot-zone">
+                                            <div class="budget-dot"></div>
+                                        </div>
+                                        <div class="budget-dot-zone">
+                                            <div class="budget-dot"></div>
+                                        </div>
+                                        <div class="budget-dot-zone">
+                                            <div class="budget-dot"></div>
+                                        </div>
+                                        <div class="budget-dot-zone">
+                                            <div class="budget-dot"></div>
+                                        </div>
+                                    </div>
+                                    <input type="range" class="budget-range" min="0" max="3" step="0.01" value="1">
+                                </div>
+                                <div class="budget-labels">
+                                    <span>&lt; 500 USD</span>
+                                    <span>500 - 1k</span>
+                                    <span>1k - 10k</span>
+                                    <span>10k+</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-field">
+                            <label>Design Preferences</label>
+                            <label class="upload-box" id="uploadBoxTrigger" for="designUpload">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                <span>Upload files OR drag & drop</span>
+                            </label>
+                            <input type="file" id="designUpload" name="attachment" multiple
+                                accept="image/*,.pdf,.zip,.doc,.docx" style="display: none;">
+                            <div class="file-tags" id="fileTagsContainer"></div>
+                        </div>
+
+                        <div class="form-field">
+                            <label>Do you have a deadline?</label>
+                            <div class="pill-group">
+                                <div class="form-pill active">Yes</div>
+                                <div class="form-pill">No, no rush</div>
+                                <div class="form-pill">No, but asap please</div>
+                            </div>
+                        </div>
+
+                        <div class="form-field">
+                            <label>Where did you hear about us?</label>
+                            <div class="pill-group">
+                                <div class="form-pill">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M17.788 5.108a9 9 0 1 0 3.212 6.892h-8"></path>
+                                    </svg>
+                                    Google
+                                </div>
+                                <div class="form-pill">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M8 20l4 -9"></path>
+                                        <path
+                                            d="M10.7 14c.437 1.263 1.43 2 2.55 2c2.071 0 3.75 -1.554 3.75 -4a5 5 0 1 0 -9.7 1.7">
+                                        </path>
+                                        <circle cx="12" cy="12" r="9"></circle>
+                                    </svg>
+                                    Pinterest
+                                </div>
+                                <div class="form-pill">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3 18v-12h4.5a3 3 0 0 1 0 6a3 3 0 0 1 0 6h-4.5"></path>
+                                        <path d="M3 12l4.5 0"></path>
+                                        <path d="M14 13h7a3.5 3.5 0 0 0 -7 0v2a3.5 3.5 0 0 0 6.6 1"></path>
+                                        <path d="M16 6l3 0"></path>
+                                    </svg>
+                                    Behance
+                                </div>
+                                <div class="form-pill">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                    </svg>
+                                    Instagram
+                                </div>
+                                <div class="form-pill">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <path d="M8.5 10a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
+                                        <path d="M15.5 10a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
+                                        <path d="M15.5 17a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
+                                        <path d="M8.5 17a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
+                                    </svg>
+                                    dribbble
+                                </div>
+                                <div class="form-pill">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z">
+                                        </path>
+                                    </svg>
+                                    facebook
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-footer">
+                            <button class="submit-btn" type="submit" id="submitFormBtn">SUBMIT <svg width="16"
+                                    height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg></button>
+                        </div>
+                    </form>
+                    <div class="modal-contact-info mobile-contact">
+                        <span>Email
+                            <strong>jubayerdcd@gmail.com</strong>
+                        </span>
+                        <span>whatsapp
+                            <strong>+8801623715671</strong>
+                        </span>
+                        <div class="modal-socials">
+                            <span>@jubayerdcd</span>
+                            <div class="social-icons-mini">
+                                <a href="https://behance.net/jubayerdcd" target="_blank" rel="noopener noreferrer">Be</a>
+                                <a href="https://facebook.com/jubayerdcd" target="_blank" rel="noopener noreferrer">f</a>
+                                <a href="https://instagram.com/jubayerdcd" target="_blank" rel="noopener noreferrer">ig</a>
+                                <a href="https://linkedin.com/in/jubayerdcd" target="_blank" rel="noopener noreferrer">in</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ── MOBILE MENU OVERLAY ── -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <button class="menu-close-btn" id="menuCloseBtn">&times;</button>
+        <div class="menu-links">
+            <a href="#home">HOME <span class="arrow">&rarr;</span></a>
+            <a href="#works">WORK <span class="arrow">&rarr;</span></a>
+            <a href="#outcomes">SERVICES <span class="arrow">&rarr;</span></a>
+            <a href="#about">ABOUT <span class="arrow">&rarr;</span></a>
+            <a href="#contact">CONTACT <span class="arrow">&rarr;</span></a>
+        </div>
+        <div class="menu-socials">
+            <a href="#">Be</a>
+            <a href="#">f</a>
+            <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg></a>
+            <a href="#">in</a>
+        </div>
+    </div>
+
+
+    <script src="js/main.js" defer></script>
+</body>
+
+</html>

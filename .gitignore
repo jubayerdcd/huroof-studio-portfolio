@@ -1,0 +1,19 @@
+# Windows thumbnail cache
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Mac
+.DS_Store
+
+# Node modules and dev scripts
+node_modules/
+package.json
+package-lock.json
+compress.js
+fix_mangled.js
+implementation_plan.md
+
+# Local configuration files
+.env
+*.local
