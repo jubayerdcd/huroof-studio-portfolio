@@ -112,7 +112,7 @@ const observer = new IntersectionObserver(entries => {
         if (pos === 'works' && activePos !== 'works') {
             const worksGrid = document.querySelector('.works-content');
             if (worksGrid) {
-                if (activePos === 'outcomes' || activePos === 'contact') {
+                if (activePos === 'about' || activePos === 'contact') {
                     // Entered from Below (Scroll UP) -> Start at the BOTTOM of the nested grid
                     worksGrid.scrollTop = worksGrid.scrollHeight;
                     targetWorksScroll = worksGrid.scrollHeight;
@@ -667,6 +667,19 @@ if (contactForm && fileUpload && fileTagsContainer) {
                     renderFileTags();
                     syncFileInput();
 
+                    // ── Trigger Analytics Event ──
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'generate_lead', {
+                            'event_category': 'Contact',
+                            'event_label': 'Success Submission',
+                            'value': 1.0
+                        });
+                    }
+                    if (typeof clarity === 'function') {
+                        clarity("set", "ContactStatus", "FormSent");
+                        clarity("event", "contact_form_success");
+                    }
+
                     // If there are pill groups, visually reset them? Optional.
 
                     // Revert success msg after 5s
@@ -699,8 +712,8 @@ const layerTop = document.querySelector('.layer-top');
 const animStops = [
     { left: 50, top: 50, scale: 1, opacity: 1, xOffset: -50, yOffset: -50 },       // 0: Home
     { left: 50, top: 110, scale: 1.4, opacity: 1, xOffset: -50, yOffset: -50 },     // 1: About Hero
-    { left: -20, top: 50, scale: 1, opacity: 1, xOffset: 0, yOffset: -50 },         // 2: Works
-    { left: 100, top: 50, scale: 1, opacity: 1, xOffset: -65, yOffset: -50 },       // 3: Outcomes
+    { left: 100, top: 50, scale: 1, opacity: 1, xOffset: -65, yOffset: -50 },       // 2: Outcomes
+    { left: -20, top: 50, scale: 1, opacity: 1, xOffset: 0, yOffset: -50 },         // 3: Works
     { left: 50, top: 50, scale: 0.8, opacity: 0, xOffset: -50, yOffset: -50 },      // 4: Real About
     { left: 50, top: 50, scale: 0.8, opacity: 0, xOffset: -50, yOffset: -50 }       // 5: Contact
 ];
@@ -824,3 +837,64 @@ function renderScrollAnimation() {
     requestAnimationFrame(renderScrollAnimation);
 }
 requestAnimationFrame(renderScrollAnimation);
+
+
+// ── TRACKING & ANALYTICS ──
+document.addEventListener('DOMContentLoaded', () => {
+    // Utility to log events safely
+    const trackEvent = (name, props = {}) => {
+        if (typeof gtag === 'function') gtag('event', name, props);
+        if (typeof clarity === 'function') clarity("event", name);
+    };
+
+    // 1. CTA Buttons (Start a Project)
+    document.querySelectorAll('.start-project-btn, .start-project-btn-mobile').forEach(btn => {
+        btn.addEventListener('click', () => {
+            trackEvent('click_cta_start_project', {
+                'location': btn.classList.contains('start-project-btn-mobile') ? 'Mobile Hero' : 'Fixed Header'
+            });
+        });
+    });
+
+    // 2. Social Media Clicks
+    document.querySelectorAll('.left-socials a, .modal-socials a, .menu-socials a').forEach(link => {
+        link.addEventListener('click', () => {
+            const platform = link.getAttribute('title') || link.textContent.trim() || 'Social';
+            trackEvent('click_social_link', {
+                'platform': platform,
+                'url': link.href
+            });
+        });
+    });
+
+    // 3. Section Navigation Tracking
+    // We can use the existing 'activePos' logic or add specific markers
+    const navLinksList = document.querySelectorAll('.right-nav a, .menu-links a');
+    navLinksList.forEach(link => {
+        link.addEventListener('click', () => {
+             trackEvent('navigation_click', {
+                 'target': link.getAttribute('href') || link.dataset.target
+             });
+        });
+    });
+
+    // 4. Portfolio Interaction
+    document.querySelectorAll('.see-all-header-btn, .see-more-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            trackEvent('view_all_projects_click', {
+                'source': btn.classList.contains('see-all-header-btn') ? 'Header Link' : 'Category Button'
+            });
+        });
+    });
+
+    // 5. Budget Slider Interaction
+    const slider = document.querySelector('.budget-range');
+    if (slider) {
+        slider.addEventListener('change', () => {
+            const labels = ["<500", "500-1k", "1k-10k", "10k+"];
+            trackEvent('budget_slider_interact', {
+                'selected_range': labels[Math.round(slider.value)]
+            });
+        });
+    }
+});
