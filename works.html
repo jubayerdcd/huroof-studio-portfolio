@@ -524,6 +524,23 @@
                 window.addEventListener('resize', checkScroll);
                 checkScroll(); // initial check
             }
+
+            // ── Hide on Scroll Down / Show on Scroll Up Logic ──
+            let lastScrollY = window.scrollY;
+            const filterContainer = document.querySelector('.works-filters-container');
+
+            window.addEventListener('scroll', () => {
+                if (!filterContainer) return;
+                const currentScrollY = window.scrollY;
+                
+                if (currentScrollY > lastScrollY && currentScrollY > 80) {
+                    filterContainer.classList.add('filters-hidden');
+                } else if (currentScrollY < lastScrollY || currentScrollY <= 80) {
+                    filterContainer.classList.remove('filters-hidden');
+                }
+                
+                lastScrollY = currentScrollY;
+            }, { passive: true });
         });
 
     </script>
