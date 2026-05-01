@@ -60,7 +60,7 @@ function renderOutcomes() {
 
     carousel.innerHTML = sortedItems.map(item => {
         if (item.type === 'video') {
-            return `<div class="outcome-card"><video src="${item.src}" autoplay loop muted playsinline></video></div>`;
+            return `<div class="outcome-card"><video data-src="${item.src}" loop muted playsinline preload="none"></video></div>`;
         } else {
             return `<div class="outcome-card"><img src="${item.src}" alt="Outcome"></div>`;
         }
@@ -80,27 +80,72 @@ function renderOutcomes() {
 }
 renderOutcomes();
 
+// ── Lazy-load Outcome Videos ──
+// Videos use data-src instead of src; they load and play only when scrolled into view.
+const outcomeVideos = document.querySelectorAll('#outcomesCarousel video[data-src]');
+if (outcomeVideos.length > 0) {
+    const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const video = entry.target;
+            if (entry.isIntersecting) {
+                if (video.dataset.src && !video.getAttribute('src')) {
+                    video.src = video.dataset.src;
+                    video.load();
+                }
+                video.play().catch(() => {});
+            } else {
+                video.pause();
+            }
+        });
+    }, { rootMargin: '200px 0px' });
+    outcomeVideos.forEach(v => videoObserver.observe(v));
+}
+
 // ── SCROLL CONTROL VARIABLES ──
 let activePos = 'home';
 let targetWorksScroll = 0; // Added globally to sync across triggers
 const carousel = document.getElementById('outcomesCarousel');
 const scroller = document.querySelector('.scroller');
 
+let cachedSectionOffsets = [];
+function calculateOffsets() {
+    cachedSectionOffsets = Array.from(sections).map(s => s.offsetTop);
+}
+window.addEventListener('load', calculateOffsets);
+window.addEventListener('resize', calculateOffsets);
+calculateOffsets(); // Initial call
+
+
 // ✨ PLAY WITH THIS VALUE TO ADJUST THE CAROUSEL SIDE-SCROLL TIME (in milliseconds) ✨
 const AUTO_SLIDE_TIME_MS = 2000; // 2 seconds
 
 let autoSlideInterval;
+let autoSlideTimeout;
 const startAutoSlide = () => {
     if (!carousel) return;
     clearInterval(autoSlideInterval);
-    autoSlideInterval = setInterval(() => {
-        const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-        let nextScroll = carousel.scrollLeft + 340;
-        if (nextScroll > maxScroll + 10) nextScroll = 0;
-        carousel.scrollTo({ left: nextScroll, behavior: 'smooth' });
-    }, AUTO_SLIDE_TIME_MS);
+    clearTimeout(autoSlideTimeout);
+
+    // Wait exactly 1 second before the first slide
+    autoSlideTimeout = setTimeout(() => {
+        const slideAction = () => {
+            const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+            let nextScroll = carousel.scrollLeft + 340;
+            if (nextScroll > maxScroll + 10) nextScroll = 0;
+            carousel.scrollTo({ left: nextScroll, behavior: 'smooth' });
+        };
+
+        // Execute the first slide
+        slideAction();
+
+        // Start the normal interval for subsequent slides
+        autoSlideInterval = setInterval(slideAction, AUTO_SLIDE_TIME_MS);
+    }, 1000); // 1 second initial delay
 };
-const stopAutoSlide = () => clearInterval(autoSlideInterval);
+const stopAutoSlide = () => {
+    clearInterval(autoSlideInterval);
+    clearTimeout(autoSlideTimeout);
+};
 
 // ── Section Intersection Observer ──
 const observer = new IntersectionObserver(entries => {
@@ -147,8 +192,8 @@ sections.forEach(s => observer.observe(s));
 let isCarouselVisible = false;
 if (carousel) {
     let carouselObserver;
-    // Desktop starts early (0.1), Mobile waits for 80% visibility (0.8)
-    let currentThreshold = window.innerWidth > 1024 ? 0.1 : 0.8;
+    // Desktop starts early (0.1), Mobile waits for 65% visibility (0.65)
+    let currentThreshold = window.innerWidth > 1024 ? 0.1 : 0.65;
 
     const setupCarouselObserver = () => {
         if (carouselObserver) carouselObserver.disconnect();
@@ -168,7 +213,7 @@ if (carousel) {
     setupCarouselObserver();
 
     window.addEventListener('resize', () => {
-        const newThreshold = window.innerWidth > 1024 ? 0.1 : 0.8;
+        const newThreshold = window.innerWidth > 1024 ? 0.1 : 0.65;
         if (currentThreshold !== newThreshold) {
             currentThreshold = newThreshold;
             setupCarouselObserver();
@@ -395,8 +440,12 @@ if (mobileMenuBtn && mobileMenuOverlay && menuCloseBtn) {
 const layerWrappers = document.querySelectorAll('.layer-wrapper');
 const parallaxIntensities = [4, 8, 14];
 
-window.addEventListener('mousemove', (e) => {
-    const { clientX, clientY } = e;
+// Global visibility flag updated in renderScrollAnimation
+let isAnimVisible = true;
+
+const handleParallax = (clientX, clientY) => {
+    if (!isAnimVisible) return;
+    
     const { innerWidth, innerHeight } = window;
 
     const deltaX = (clientX - innerWidth / 2) / (innerWidth / 2);
@@ -408,7 +457,39 @@ window.addEventListener('mousemove', (e) => {
         const y = deltaY * intensity;
         wrapper.style.transform = `translate(${x}px, ${y}px)`;
     });
-});
+};
+
+let parallaxTicking = false;
+
+window.addEventListener('mousemove', (e) => {
+    if (!parallaxTicking) {
+        requestAnimationFrame(() => {
+            handleParallax(e.clientX, e.clientY);
+            parallaxTicking = false;
+        });
+        parallaxTicking = true;
+    }
+}, { passive: true });
+
+window.addEventListener('touchmove', (e) => {
+    if (e.touches.length > 0 && !parallaxTicking) {
+        requestAnimationFrame(() => {
+            handleParallax(e.touches[0].clientX, e.touches[0].clientY);
+            parallaxTicking = false;
+        });
+        parallaxTicking = true;
+    }
+}, { passive: true });
+
+window.addEventListener('touchstart', (e) => {
+    if (e.touches.length > 0 && !parallaxTicking) {
+        requestAnimationFrame(() => {
+            handleParallax(e.touches[0].clientX, e.touches[0].clientY);
+            parallaxTicking = false;
+        });
+        parallaxTicking = true;
+    }
+}, { passive: true });
 
 // ── Form Pill Toggle Logic ──
 const formPills = document.querySelectorAll('.form-pill');
@@ -710,12 +791,11 @@ const layerCenter = document.querySelector('.layer-center');
 const layerTop = document.querySelector('.layer-top');
 
 const animStops = [
-    { left: 50, top: 50, scale: 1, opacity: 1, xOffset: -50, yOffset: -50 },       // 0: Home
-    { left: 50, top: 110, scale: 1.4, opacity: 1, xOffset: -50, yOffset: -50 },     // 1: About Hero
-    { left: 100, top: 50, scale: 1, opacity: 1, xOffset: -65, yOffset: -50 },       // 2: Outcomes
-    { left: -20, top: 50, scale: 1, opacity: 1, xOffset: 0, yOffset: -50 },         // 3: Works
-    { left: 50, top: 50, scale: 0.8, opacity: 0, xOffset: -50, yOffset: -50 },      // 4: Real About
-    { left: 50, top: 50, scale: 0.8, opacity: 0, xOffset: -50, yOffset: -50 }       // 5: Contact
+    { left: 50, top: 110, scale: 1.4, opacity: 1, xOffset: -50, yOffset: -50 },     // 0: Home (was About Hero)
+    { left: 100, top: 50, scale: 1, opacity: 1, xOffset: -65, yOffset: -50 },       // 1: Outcomes
+    { left: -20, top: 50, scale: 1, opacity: 1, xOffset: 0, yOffset: -50 },         // 2: Works
+    { left: 50, top: 50, scale: 0.8, opacity: 0, xOffset: -50, yOffset: -50 },      // 3: Real About
+    { left: 50, top: 50, scale: 0.8, opacity: 0, xOffset: -50, yOffset: -50 }       // 4: Contact
 ];
 
 let smoothScrollIndex = 0;
@@ -748,14 +828,19 @@ function lerp(start, end, amt) {
 
 function renderScrollAnimation() {
     // Continuous rotation
-    centerRotation += (360 / (500 * 60));
-    topRotation -= (360 / (500 * 60));
-    if (layerCenter) layerCenter.style.transform = `rotate(${centerRotation}deg)`;
-    if (layerTop) layerTop.style.transform = `rotate(${topRotation}deg)`;
+    if (isAnimVisible) {
+        centerRotation += (360 / (500 * 60));
+        topRotation -= (360 / (500 * 60));
+        if (layerCenter) layerCenter.style.transform = `rotate(${centerRotation}deg)`;
+        if (layerTop) layerTop.style.transform = `rotate(${topRotation}deg)`;
+    }
 
-    // Calculate exact section mappings based on their physical offsetTop
+    // Calculate exact section mappings based on their cached offsetTop
     const scrollY = scroller.scrollTop;
-    const sectionOffsets = Array.from(sections).map(s => s.offsetTop);
+    
+    // Fallback if empty (e.g. before load completes)
+    if (cachedSectionOffsets.length === 0) calculateOffsets();
+    const sectionOffsets = cachedSectionOffsets;
 
     let targetScrollIndex = 0;
     for (let i = 0; i < sectionOffsets.length - 1; i++) {
@@ -790,6 +875,10 @@ function renderScrollAnimation() {
             const top = lerp(transitStart.top, transitEnd.top, eased);
             const scale = lerp(transitStart.scale, transitEnd.scale, eased);
             const opacity = lerp(transitStart.opacity, transitEnd.opacity, eased);
+            
+            // Update global visibility flag for direct transit
+            isAnimVisible = opacity > 0.01;
+
             const xOffset = lerp(transitStart.xOffset, transitEnd.xOffset, eased);
             const yOffset = lerp(transitStart.yOffset, transitEnd.yOffset, eased);
 
@@ -817,6 +906,10 @@ function renderScrollAnimation() {
             const top = lerp(start.top, end.top, fraction);
             const scale = lerp(start.scale, end.scale, fraction);
             const opacity = lerp(start.opacity, end.opacity, fraction);
+            
+            // Update global visibility flag for regular scroll
+            isAnimVisible = opacity > 0.01;
+
             const xOffset = lerp(start.xOffset, end.xOffset, fraction);
             const yOffset = lerp(start.yOffset, end.yOffset, fraction);
 
@@ -826,6 +919,9 @@ function renderScrollAnimation() {
             animWrapper.style.opacity = Math.max(0, opacity);
             animWrapper.style.position = 'fixed';
         } else if (animWrapper) {
+            // Update global visibility flag for mobile fallback
+            isAnimVisible = (activePos === 'home');
+
             // Mobile fallback
             animWrapper.style.left = '';
             animWrapper.style.top = '';

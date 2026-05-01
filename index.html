@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Preload animation layers (these gate the site loader) -->
+    <link rel="preload" href="assets/animation-layers/animation-bottom-layer.webp" as="image" type="image/webp">
+    <link rel="preload" href="assets/animation-layers/animation-center-layer.webp" as="image" type="image/webp">
+    <link rel="preload" href="assets/animation-layers/animation-top-layer.webp" as="image" type="image/webp">
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RPHRSQEPN7"></script>
     <script>
@@ -205,10 +210,6 @@
 
         <!-- 1. HOME -->
         <section id="home" data-pos="home">
-        </section>
-
-        <!-- 2. HERO ABOUT -->
-        <section id="hero-about" data-pos="hero-about">
             <div class="about-content">
                 <div class="social-proof">
                     <img src="assets/revisions/client-logos/client-logos.svg" loading="lazy" alt="Client Logos">
@@ -222,13 +223,13 @@
             <!-- ── ROTATING ANIMATION (globally fixed on desktop, relative on mobile) ── -->
             <div id="animWrapper" class="pos-home">
                 <div class="layer-wrapper layer-bottom-wrapper">
-                    <img src="assets/animation-layers/animation-bottom-layer.webp" alt="" class="layer layer-bottom">
+                    <img src="assets/animation-layers/animation-bottom-layer.webp" alt="" class="layer layer-bottom" decoding="async">
                 </div>
                 <div class="layer-wrapper layer-center-wrapper">
-                    <img src="assets/animation-layers/animation-center-layer.webp" alt="" class="layer layer-center">
+                    <img src="assets/animation-layers/animation-center-layer.webp" alt="" class="layer layer-center" decoding="async">
                 </div>
                 <div class="layer-wrapper layer-top-wrapper">
-                    <img src="assets/animation-layers/animation-top-layer.webp" alt="" class="layer layer-top">
+                    <img src="assets/animation-layers/animation-top-layer.webp" alt="" class="layer layer-top" decoding="async">
                 </div>
             </div>
         </section>
@@ -238,7 +239,7 @@
             <div class="outcomes-wrapper">
                 <div class="outcomes-header" style="margin-bottom: 15px;">
                     <h2
-                        style="font-size: 2.2rem; font-weight: 500; color: var(--gold); margin: 0; line-height: 1; letter-spacing: 0.02em;">
+                        style="font-size: 2.2rem; font-weight: 500; color: var(--gold); margin: 0; line-height: 1; letter-spacing: -0.02em; word-spacing: -0.05em;">
                         Final Outcomes</h2>
                     <p
                         style="font-size: 1.05rem; color: rgba(255, 255, 255, 0.6); font-weight: 400; margin: 4px 0 0 0; letter-spacing: normal;">
@@ -386,6 +387,15 @@
                             <div class="info">
                                 <div class="cat">Calligraphy Art</div>
                                 <div class="title">Arabic Calligraffiti</div>
+                            </div>
+                        </div>
+                        <div class="project-card span-2">
+                            <div class="thumb"><img
+                                    src="assets/revisions/works/Artworks/KSH05479-(1)-Recovered.jpg"
+                                    loading="lazy" alt="Large Horizontal Artwork"></div>
+                            <div class="info">
+                                <div class="cat">Calligraphy Art</div>
+                                <div class="title">Horizontal Artwork</div>
                             </div>
                         </div>
                     </div>
