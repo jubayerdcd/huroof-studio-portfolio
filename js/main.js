@@ -111,8 +111,20 @@ let cachedSectionOffsets = [];
 function calculateOffsets() {
     cachedSectionOffsets = Array.from(sections).map(s => s.offsetTop);
 }
+
+// Ensure the animation loop restarts if resizing from mobile back to desktop
+let wasMobileWidth = window.innerWidth <= 800;
+function handleResize() {
+    calculateOffsets();
+    const isMobileWidth = window.innerWidth <= 800;
+    if (wasMobileWidth && !isMobileWidth) {
+        requestAnimationFrame(renderScrollAnimation);
+    }
+    wasMobileWidth = isMobileWidth;
+}
+
 window.addEventListener('load', calculateOffsets);
-window.addEventListener('resize', calculateOffsets);
+window.addEventListener('resize', handleResize);
 calculateOffsets(); // Initial call
 
 
@@ -444,7 +456,7 @@ const parallaxIntensities = [4, 8, 14];
 let isAnimVisible = true;
 
 const handleParallax = (clientX, clientY) => {
-    if (!isAnimVisible) return;
+    if (!isAnimVisible || (window.innerWidth <= 800 && activePos !== 'home')) return;
     
     const { innerWidth, innerHeight } = window;
 
@@ -827,6 +839,16 @@ function lerp(start, end, amt) {
 }
 
 function renderScrollAnimation() {
+    // On mobile, only run animations while on the home section
+    if (window.innerWidth <= 800 && activePos !== 'home') {
+        isAnimVisible = false;
+        if (animWrapper) {
+            animWrapper.style.opacity = '0'; // Hide it entirely to prevent layout thrashing
+        }
+        requestAnimationFrame(renderScrollAnimation);
+        return; // Halt heavy math calculations
+    }
+
     // Continuous rotation
     if (isAnimVisible) {
         centerRotation += (360 / (500 * 60));
@@ -926,7 +948,7 @@ function renderScrollAnimation() {
             animWrapper.style.left = '';
             animWrapper.style.top = '';
             animWrapper.style.transform = '';
-            animWrapper.style.opacity = '1';
+            animWrapper.style.opacity = isAnimVisible ? '1' : '0';
         }
     }
 

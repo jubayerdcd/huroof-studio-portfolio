@@ -8,7 +8,8 @@
     --black: #000000;
     --white: #ffffff;
     --gold: #c9a84c;
-    --dim: #999999; /* Solid grey to remove translucent/glass bleed effect */
+    --dim: #999999;
+    /* Solid grey to remove translucent/glass bleed effect */
     --nav-gap: 30px;
 }
 
@@ -80,9 +81,14 @@ body {
 .squircle-spin {
     /* Transform origin matched to 4000x4000 squircles placed at x=-1595 y=0 */
     transform-origin: 405px 2000px;
-    animation-name: spinWave;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
+}
+
+@media (min-width: 801px) {
+    .squircle-spin {
+        animation-name: spinWave;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+    }
 }
 
 .spin-slow {
@@ -214,8 +220,12 @@ section {
 }
 
 /* ──────────────────────────────────────
-           LOGO (top-left)
+           LOGO (top-left) & HEADER BG
         ────────────────────────────────────── */
+.mobile-header-bg {
+    display: none;
+}
+
 .logo {
     /* ✨ PLAY WITH THESE VALUES TO ADJUST THE LOGO ✨ */
     /* Desktop settings: */
@@ -225,7 +235,8 @@ section {
 
     /* Mobile settings (under 1024px width): */
     --logo-height-mobile: 34px;
-    --logo-top-spacing-mobile: 24px;
+    --logo-top-spacing-mobile: 16px;
+    /* Adjusted to vertically center with the background shape */
 
     position: fixed;
     top: 0;
@@ -525,8 +536,14 @@ section {
     font-size: 0.85rem;
     font-weight: 500;
     transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (min-width: 801px) {
+    .see-all-header-btn {
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
 }
 
 .see-all-header-btn:hover {
@@ -1290,7 +1307,8 @@ input[type=range]::-moz-range-thumb:hover {
 .mobile-menu-btn {
     display: none;
     position: fixed;
-    top: 45px;
+    top: 25px;
+    /* Vertically centered relative to the shape */
     left: 36px;
     z-index: 50;
     flex-direction: column;
@@ -1307,7 +1325,8 @@ input[type=range]::-moz-range-thumb:hover {
 
 /* Mobile CTA Button */
 .start-project-btn-mobile {
-    display: none; /* Changed via media query */
+    display: none;
+    /* Changed via media query */
     align-items: center;
     justify-content: center;
     background: transparent;
@@ -1362,6 +1381,29 @@ input[type=range]::-moz-range-thumb:hover {
         top: 0;
         padding: var(--logo-top-spacing-mobile) 0 10px;
         transform: translateX(-50%);
+    }
+
+    .mobile-header-bg {
+        display: block;
+        position: fixed;
+        top: -20px;
+        /* Lifted up by 20px */
+        left: 0;
+        width: 100vw;
+        height: calc(20vw + 20px);
+        /* Add 20px to height to compensate for top shift */
+        min-height: 105px;
+        /* Compensate min-height */
+        background-image: url('../assets/menu%20background.svg');
+        background-size: 100% 100%;
+        background-position: top center;
+        background-repeat: no-repeat;
+        z-index: 45;
+        /* Below the logo and hamburger (z-index 50) */
+        pointer-events: none;
+        transition: transform 0.3s ease;
+        margin: 0;
+        padding: 0;
     }
 
     .logo img {
@@ -1672,14 +1714,16 @@ input[type=range]::-moz-range-thumb:hover {
 
 .start-project-btn {
     /* ✨ PLAY WITH THESE VALUES TO ADJUST THE BUTTON POSITION (Desktop) ✨ */
-    --btn-top-spacing-desktop: 26px; /* Matches perfectly with the logo's y-center */
-    --btn-right-spacing-desktop: 45px; /* Symmetrical with your new logo-left setting */
+    --btn-top-spacing-desktop: 26px;
+    /* Matches perfectly with the logo's y-center */
+    --btn-right-spacing-desktop: 45px;
+    /* Symmetrical with your new logo-left setting */
 
     position: fixed;
     top: var(--btn-top-spacing-desktop);
     right: var(--btn-right-spacing-desktop);
     z-index: 50;
-    
+
     display: inline-block;
     background: transparent;
     border: 1px dashed var(--gold);

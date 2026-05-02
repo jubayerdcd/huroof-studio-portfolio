@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Preload animation layers (these gate the site loader) -->
-    <link rel="preload" href="assets/animation-layers/animation-bottom-layer.webp" as="image" type="image/webp">
-    <link rel="preload" href="assets/animation-layers/animation-center-layer.webp" as="image" type="image/webp">
-    <link rel="preload" href="assets/animation-layers/animation-top-layer.webp" as="image" type="image/webp">
+    <!-- Preload animation layers (these gate the site loader on desktop) -->
+    <link rel="preload" href="assets/animation-layers/animation-bottom-layer.webp" as="image" type="image/webp" media="(min-width: 801px)">
+    <link rel="preload" href="assets/animation-layers/animation-center-layer.webp" as="image" type="image/webp" media="(min-width: 801px)">
+    <link rel="preload" href="assets/animation-layers/animation-top-layer.webp" as="image" type="image/webp" media="(min-width: 801px)">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RPHRSQEPN7"></script>
@@ -172,6 +172,9 @@
         </div>
     </div>
 
+    <!-- ── MOBILE HEADER BACKGROUND ── -->
+    <div class="mobile-header-bg"></div>
+
     <!-- ── LOGO ── -->
     <div class="logo"><img src="assets/revisions/huroof-studio-logo-02.svg" alt="Huroof Studio"></div>
 
@@ -299,15 +302,15 @@
                             </div>
                         </div>
                         <div class="project-card">
-                            <div class="thumb"><img src="assets/revisions/works/logo-branding/abu-drib.jpg"
-                                    loading="lazy" alt="Abu Drib Branding"></div>
+                            <div class="thumb"><img src="assets/revisions/works/logo-branding/jahabi-logo-and-brand-identity.webp"
+                                    loading="lazy" alt="Jahabi Brand Identity"></div>
                             <div class="info">
                                 <div class="cat">Branding</div>
-                                <div class="title">Abu Drib Brand Identity</div>
+                                <div class="title">Jahabi Brand Identity</div>
                             </div>
                         </div>
                     </div>
-                    <a href="works.html" class="see-more-btn">See more branding works</a>
+                    <a href="works.html?filter=branding" class="see-more-btn">See more branding works</a>
 
                     <div class="category-title">Packaging</div>
                     <div class="projects-grid">
@@ -348,7 +351,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="works.html" class="see-more-btn">See more packaging</a>
+                    <a href="works.html?filter=packaging" class="see-more-btn">See more packaging</a>
 
                     <div class="category-title">Artworks</div>
                     <div class="projects-grid">
@@ -399,7 +402,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="works.html" class="see-more-btn">See more Artworks</a>
+                    <a href="works.html?filter=artworks" class="see-more-btn">See more Artworks</a>
                 </div>
             </div>
         </section>

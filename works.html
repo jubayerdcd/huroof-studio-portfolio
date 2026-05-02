@@ -62,7 +62,8 @@
         @media (max-width: 600px) {
             .works-filters-container {
                 position: sticky;
-                top: 100px;
+                top: 65px;
+                /* Reduced further */
                 left: auto;
                 right: auto;
             }
@@ -219,21 +220,28 @@
             }
 
             .works-page-wrapper {
-                padding-top: 90px;
+                padding-top: 76px;
+                /* Reduced from 90px */
             }
 
             .works-filters-container {
-                position: sticky; /* Override the desktop fixed position */
-                top: 78px;
+                position: sticky;
+                /* Override the desktop fixed position */
+                top: 65px;
+                /* Stick even higher */
                 left: auto;
                 right: auto;
-                padding-top: 10px;
-                padding-bottom: 4px;
+                padding-top: 0px;
+                padding-bottom: 0px;
+                margin-bottom: 6px;
+                /* Extremely tight bottom gap */
                 justify-content: center;
             }
 
             .works-filters {
                 justify-content: center;
+                padding-bottom: 4px;
+                /* Reduced from 15px */
             }
         }
 
@@ -255,6 +263,9 @@
 </head>
 
 <body>
+    <!-- ── MOBILE HEADER BACKGROUND ── -->
+    <div class="mobile-header-bg"></div>
+
     <!-- ── LOGO ── -->
     <a href="index.html" class="logo"><img src="assets/revisions/huroof-studio-logo-02.svg" alt="Huroof Studio"></a>
 
@@ -298,7 +309,8 @@
         <div class="works-grid" id="projectsGrid">
             <!-- Branding -->
             <div class="project-card" data-category="branding">
-                <div class="thumb"><img src="assets/revisions/works/logo-branding/madinatul-uloom-jpg-logo-and-brand-identity.webp"
+                <div class="thumb"><img
+                        src="assets/revisions/works/logo-branding/madinatul-uloom-jpg-logo-and-brand-identity.webp"
                         loading="lazy" alt="Madinatul Uloom"></div>
                 <div class="info">
                     <div class="cat">Branding</div>
@@ -306,19 +318,28 @@
                 </div>
             </div>
             <div class="project-card" data-category="branding">
-                <div class="thumb"><img src="assets/revisions/works/logo-branding/taurex-logo-and-brand-identity.webp" loading="lazy"
-                        alt="Taurex Logo"></div>
+                <div class="thumb"><img src="assets/revisions/works/logo-branding/taurex-logo-and-brand-identity.webp"
+                        loading="lazy" alt="Taurex Logo"></div>
                 <div class="info">
                     <div class="cat">Logo Design</div>
                     <div class="title">Taurex Logo</div>
                 </div>
             </div>
             <div class="project-card" data-category="branding">
-                <div class="thumb"><img src="assets/revisions/works/logo-branding/tote-bag-mockup-logo-and-brand-identity.webp" loading="lazy"
-                        alt="Tote Bag Mockup"></div>
+                <div class="thumb"><img
+                        src="assets/revisions/works/logo-branding/tote-bag-mockup-logo-and-brand-identity.webp"
+                        loading="lazy" alt="Tote Bag Mockup"></div>
                 <div class="info">
                     <div class="cat">Brand Merchandise</div>
                     <div class="title">Tote Bag Mockup</div>
+                </div>
+            </div>
+            <div class="project-card" data-category="branding">
+                <div class="thumb"><img src="assets/revisions/works/logo-branding/jahabi-logo-and-brand-identity.webp" loading="lazy"
+                        alt="Jahabi Brand Identity"></div>
+                <div class="info">
+                    <div class="cat">Branding</div>
+                    <div class="title">Jahabi Brand Identity</div>
                 </div>
             </div>
             <div class="project-card" data-category="branding">
@@ -327,6 +348,46 @@
                 <div class="info">
                     <div class="cat">Branding</div>
                     <div class="title">Abu Drib Brand Identity</div>
+                </div>
+            </div>
+            <div class="project-card" data-category="branding">
+                <div class="thumb"><img src="assets/revisions/works/logo-branding/Al-Hikmah-Logo-Branding-Desiign.jpg" loading="lazy"
+                        alt="Al-Hikmah Brand Identity"></div>
+                <div class="info">
+                    <div class="cat">Branding</div>
+                    <div class="title">Al-Hikmah Brand Identity</div>
+                </div>
+            </div>
+            <div class="project-card" data-category="branding">
+                <div class="thumb"><img src="assets/revisions/works/logo-branding/Ilysa---Islamic-Clothing-Brand-Identity-Design-.jpg" loading="lazy"
+                        alt="Ilysa Brand Identity"></div>
+                <div class="info">
+                    <div class="cat">Branding</div>
+                    <div class="title">Ilysa Brand Identity</div>
+                </div>
+            </div>
+            <div class="project-card" data-category="branding">
+                <div class="thumb"><img src="assets/revisions/works/logo-branding/Milon-jewellers---Logo-&-Branding.jpg" loading="lazy"
+                        alt="Milon Jewellers"></div>
+                <div class="info">
+                    <div class="cat">Branding</div>
+                    <div class="title">Milon Jewellers</div>
+                </div>
+            </div>
+            <div class="project-card" data-category="branding">
+                <div class="thumb"><img src="assets/revisions/works/logo-branding/Personal-Brand-Logo---Eagle-Shaped.jpg" loading="lazy"
+                        alt="Personal Brand Logo"></div>
+                <div class="info">
+                    <div class="cat">Logo Design</div>
+                    <div class="title">Personal Brand Logo</div>
+                </div>
+            </div>
+            <div class="project-card" data-category="branding">
+                <div class="thumb"><img src="assets/revisions/works/logo-branding/Somoud--Real-Estate---Architectural-Logo-Branding.jpg" loading="lazy"
+                        alt="Somoud Real Estate"></div>
+                <div class="info">
+                    <div class="cat">Branding</div>
+                    <div class="title">Somoud Real Estate</div>
                 </div>
             </div>
 
@@ -340,7 +401,8 @@
                 </div>
             </div>
             <div class="project-card" data-category="packaging">
-                <div class="thumb"><img src="assets/revisions/works/packaging-works/mailer-box-mockup-1-packaging-design.webp"
+                <div class="thumb"><img
+                        src="assets/revisions/works/packaging-works/mailer-box-mockup-1-packaging-design.webp"
                         loading="lazy" alt="Mailer Box 1"></div>
                 <div class="info">
                     <div class="cat">Packaging</div>
@@ -348,7 +410,8 @@
                 </div>
             </div>
             <div class="project-card" data-category="packaging">
-                <div class="thumb"><img src="assets/revisions/works/packaging-works/2-mailer-box-mockup-2-packaging-design.webp"
+                <div class="thumb"><img
+                        src="assets/revisions/works/packaging-works/2-mailer-box-mockup-2-packaging-design.webp"
                         loading="lazy" alt="Mailer Box 2"></div>
                 <div class="info">
                     <div class="cat">Packaging</div>
@@ -356,16 +419,16 @@
                 </div>
             </div>
             <div class="project-card" data-category="packaging">
-                <div class="thumb"><img src="assets/revisions/works/packaging-works/artboard-1-packaging-design.webp" loading="lazy"
-                        alt="Packaging Artboard"></div>
+                <div class="thumb"><img src="assets/revisions/works/packaging-works/artboard-1-packaging-design.webp"
+                        loading="lazy" alt="Packaging Artboard"></div>
                 <div class="info">
                     <div class="cat">Packaging</div>
                     <div class="title">Label & Wrap Design</div>
                 </div>
             </div>
             <div class="project-card" data-category="packaging">
-                <div class="thumb"><img src="assets/revisions/works/packaging-works/2-packaging-design.webp" loading="lazy"
-                        alt="Packaging Design"></div>
+                <div class="thumb"><img src="assets/revisions/works/packaging-works/2-packaging-design.webp"
+                        loading="lazy" alt="Packaging Design"></div>
                 <div class="info">
                     <div class="cat">Packaging</div>
                     <div class="title">Product Packaging</div>
@@ -401,9 +464,8 @@
                 </div>
             </div>
             <div class="project-card" data-category="artworks">
-                <div class="thumb"><img
-                        src="assets/revisions/works/Artworks/arabic-calligraffiti.jpg"
-                        loading="lazy" alt="Arabic Calligraffiti"></div>
+                <div class="thumb"><img src="assets/revisions/works/Artworks/arabic-calligraffiti.jpg" loading="lazy"
+                        alt="Arabic Calligraffiti"></div>
                 <div class="info">
                     <div class="cat">Calligraphy Art</div>
                     <div class="title">Arabic Calligraffiti</div>
@@ -494,6 +556,16 @@
                 });
             });
 
+            // Auto-select filter based on URL query parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const activeFilter = urlParams.get('filter');
+            if (activeFilter) {
+                const targetBtn = Array.from(filterBtns).find(btn => btn.getAttribute('data-filter') === activeFilter);
+                if (targetBtn) {
+                    setTimeout(() => targetBtn.click(), 10);
+                }
+            }
+
             // Track Social Clicks on Works Page
             document.querySelectorAll('.left-socials a, .menu-socials a').forEach(link => {
                 link.addEventListener('click', () => {
@@ -524,23 +596,6 @@
                 window.addEventListener('resize', checkScroll);
                 checkScroll(); // initial check
             }
-
-            // ── Hide on Scroll Down / Show on Scroll Up Logic ──
-            let lastScrollY = window.scrollY;
-            const filterContainer = document.querySelector('.works-filters-container');
-
-            window.addEventListener('scroll', () => {
-                if (!filterContainer) return;
-                const currentScrollY = window.scrollY;
-                
-                if (currentScrollY > lastScrollY && currentScrollY > 80) {
-                    filterContainer.classList.add('filters-hidden');
-                } else if (currentScrollY < lastScrollY || currentScrollY <= 80) {
-                    filterContainer.classList.remove('filters-hidden');
-                }
-                
-                lastScrollY = currentScrollY;
-            }, { passive: true });
         });
 
     </script>
