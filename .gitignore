@@ -39,3 +39,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Build & utility scripts (not for public repo)
+fetch_behance.js
+scrape_behance.js
+generate_case_studies.js
+dump_eid_box.js
+download.ps1
+download_images.py
+test_parse.js
+package.json
+package-lock.json
