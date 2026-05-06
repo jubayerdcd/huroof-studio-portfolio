@@ -299,22 +299,35 @@ async function callWorker(userMessage) {
         throw new Error("Cloudflare Worker URL not configured. See js/chatbot.js for setup instructions.");
     }
 
-    const response = await fetch(CLOUDFLARE_WORKER_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            message: userMessage,
-            // Send history excluding the message we just added (it's sent as `message`)
-            history: conversationHistory.slice(0, -1),
-        }),
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-        throw new Error(data.error || `Worker error: ${response.status}`);
+    let response;
+    try {
+        response = await fetch(CLOUDFLARE_WORKER_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                message: userMessage,
+                history: conversationHistory.slice(0, -1),
+            }),
+        });
+    } catch (networkErr) {
+        // This fires on CORS errors, network offline, or Worker URL unreachable
+        console.error("[Chatbot] Network/CORS error — could not reach Worker:", networkErr);
+        console.error("[Chatbot] Worker URL:", CLOUDFLARE_WORKER_URL);
+        console.error("[Chatbot] If this is a CORS error, add your site's origin to ALLOWED_ORIGINS in cf-worker.js and redeploy.");
+        throw networkErr;
     }
 
+    // Log the raw response for debugging
+    console.log("[Chatbot] Worker response status:", response.status, response.statusText);
+
+    if (!response.ok) {
+        const errText = await response.text();
+        console.error("[Chatbot] Worker returned error:", response.status, errText);
+        throw new Error(`Worker error ${response.status}: ${errText}`);
+    }
+
+    const data = await response.json();
+    console.log("[Chatbot] Reply received OK");
     return data.reply;
 }
 
