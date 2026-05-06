@@ -463,8 +463,12 @@ const handleParallax = (clientX, clientY) => {
     const deltaX = (clientX - innerWidth / 2) / (innerWidth / 2);
     const deltaY = (clientY - innerHeight / 2) / (innerHeight / 2);
 
+    // Increase intensity on smaller screens for more noticeable movement
+    const isMobile = innerWidth <= 800;
+    const multiplier = isMobile ? 1.75 : 1;
+
     layerWrappers.forEach((wrapper, index) => {
-        const intensity = parallaxIntensities[index];
+        const intensity = parallaxIntensities[index] * multiplier;
         const x = deltaX * intensity;
         const y = deltaY * intensity;
         wrapper.style.transform = `translate(${x}px, ${y}px)`;
