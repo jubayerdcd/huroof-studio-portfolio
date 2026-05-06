@@ -22,6 +22,9 @@ const ALLOWED_ORIGINS = [
   "https://huroofstudio.com",
   "https://www.huroofstudio.com",
   "https://jubayerdcd.github.io",  // GitHub Pages testing
+  "http://127.0.0.1:5500",         // Local VS Code Live Server
+  "http://localhost:5500",
+  "http://localhost:3000"
 ];
 
 // ── System prompt that defines the chatbot personality ───────────────────────
@@ -142,7 +145,7 @@ export default {
         ],
       };
 
-      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+      const geminiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
       const geminiResponse = await fetch(geminiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -152,7 +155,7 @@ export default {
       if (!geminiResponse.ok) {
         const errText = await geminiResponse.text();
         console.error("Gemini API error:", geminiResponse.status, errText);
-        throw new Error(`Gemini API returned ${geminiResponse.status}`);
+        throw new Error(`Gemini API returned ${geminiResponse.status}: ${errText}`);
       }
 
       const data = await geminiResponse.json();
@@ -171,7 +174,7 @@ export default {
     } catch (error) {
       console.error("Worker error:", error);
       return new Response(
-        JSON.stringify({ error: "Something went wrong on our end. Please try again." }),
+        JSON.stringify({ error: error.message || "Something went wrong on our end." }),
         { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
       );
     }

@@ -176,7 +176,7 @@ function showSuggestions() {
 }
 
 function hideSuggestions() {
-    if (!suggestionsBar) return;
+    if (!suggestionsBar || suggestionsBar.children.length === 0) return;
     gsap.to(suggestionsBar.children, {
         opacity: 0, y: -6, stagger: 0.04, duration: 0.2, ease: "power2.in",
         onComplete: () => { suggestionsBar.innerHTML = ""; }
