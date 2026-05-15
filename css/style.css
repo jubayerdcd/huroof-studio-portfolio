@@ -671,7 +671,7 @@ section {
 /* ──────────────────────────────────────
            SECTION 4: OUTCOMES
         ────────────────────────────────────── */
-#outcomes {
+#Highlights {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -680,7 +680,7 @@ section {
 }
 
 /* Gradient shadow specifically in the Outcomes section acting as a dark underlay for the side nav */
-#outcomes::before {
+#Highlights::before {
     content: '';
     position: absolute;
     right: 0;
@@ -1360,7 +1360,7 @@ input[type=range]::-moz-range-thumb:hover {
         mask-image: none !important;
     }
 
-    #outcomes {
+    #Highlights {
         padding-left: 0;
         justify-content: center;
     }
