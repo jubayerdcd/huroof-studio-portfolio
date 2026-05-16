@@ -42,12 +42,12 @@ if (siteLoader) {
 const outcomeItems = [
     { serial: 4, type: 'video', src: 'assets/final-outcome-carholder-images/boite-verte.mp4' },
     { serial: 5, type: 'video', src: 'assets/final-outcome-carholder-images/mobile-cover.mp4' },
-    { serial: 1, type: 'video', src: 'assets/final-outcome-carholder-images/tableware.mp4' },
+    { serial: 8, type: 'video', src: 'assets/final-outcome-carholder-images/tableware.mp4' },
     { serial: 2, type: 'image', src: 'assets/final-outcome-carholder-images/the-lantern-1.webp' },
     { serial: 3, type: 'image', src: 'assets/final-outcome-carholder-images/chandeliear.webp' },
     { serial: 7, type: 'image', src: 'assets/final-outcome-carholder-images/packaging.webp' },
     { serial: 6, type: 'image', src: 'assets/final-outcome-carholder-images/panjabi.webp' },
-    { serial: 8, type: 'image', src: 'assets/final-outcome-carholder-images/tableware.webp' }
+    { serial: 1, type: 'image', src: 'assets/final-outcome-carholder-images/tableware.webp' }
 ];
 
 function renderOutcomes() {
