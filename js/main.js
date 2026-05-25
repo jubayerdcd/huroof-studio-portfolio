@@ -169,7 +169,7 @@ const observer = new IntersectionObserver(entries => {
         if (pos === 'works' && activePos !== 'works') {
             const worksGrid = document.querySelector('.works-content');
             if (worksGrid) {
-                if (activePos === 'about' || activePos === 'contact') {
+                if (activePos === 'testimonials' || activePos === 'about' || activePos === 'contact') {
                     // Entered from Below (Scroll UP) -> Start at the BOTTOM of the nested grid
                     worksGrid.scrollTop = worksGrid.scrollHeight;
                     targetWorksScroll = worksGrid.scrollHeight;
@@ -426,6 +426,125 @@ if (carousel) {
             carousel.scrollTo({ left: nextScroll, behavior: 'smooth' });
         });
     }
+}
+
+// ── Testimonials Carousel Controls (Endless Scrolling) ──
+const testimonialsCarousel = document.getElementById('testimonialsCarousel');
+const prevTestiBtn = document.getElementById('prevTestiCard');
+const nextTestiBtn = document.getElementById('nextTestiCard');
+
+if (testimonialsCarousel && prevTestiBtn && nextTestiBtn) {
+    // Clone children for infinite loop
+    const originalCards = Array.from(testimonialsCarousel.children);
+    originalCards.forEach(card => {
+        const clone = card.cloneNode(true);
+        testimonialsCarousel.appendChild(clone);
+    });
+
+    let testiAutoSlideInterval;
+    
+    const getScrollStep = () => {
+        const firstCard = testimonialsCarousel.querySelector('.testimonial-card');
+        const gap = parseInt(window.getComputedStyle(testimonialsCarousel).gap) || 20;
+        return firstCard.offsetWidth + gap;
+    };
+
+    const handleNext = () => {
+        const step = getScrollStep();
+        const halfWidth = testimonialsCarousel.scrollWidth / 2;
+        
+        if (testimonialsCarousel.scrollLeft >= halfWidth - 5) {
+            testimonialsCarousel.style.scrollSnapType = 'none';
+            testimonialsCarousel.scrollLeft = 0;
+            void testimonialsCarousel.offsetWidth; // Force reflow
+            testimonialsCarousel.style.scrollSnapType = 'x mandatory';
+            testimonialsCarousel.scrollTo({ left: step, behavior: 'smooth' });
+        } else {
+            testimonialsCarousel.scrollTo({ left: testimonialsCarousel.scrollLeft + step, behavior: 'smooth' });
+        }
+    };
+
+    const handlePrev = () => {
+        const step = getScrollStep();
+        const halfWidth = testimonialsCarousel.scrollWidth / 2;
+        
+        if (testimonialsCarousel.scrollLeft <= 5) {
+            testimonialsCarousel.style.scrollSnapType = 'none';
+            testimonialsCarousel.scrollLeft = halfWidth;
+            void testimonialsCarousel.offsetWidth; // Force reflow
+            testimonialsCarousel.style.scrollSnapType = 'x mandatory';
+            testimonialsCarousel.scrollTo({ left: halfWidth - step, behavior: 'smooth' });
+        } else {
+            testimonialsCarousel.scrollTo({ left: testimonialsCarousel.scrollLeft - step, behavior: 'smooth' });
+        }
+    };
+
+    nextTestiBtn.addEventListener('click', () => {
+        handleNext();
+        resetAutoSlide();
+    });
+    
+    prevTestiBtn.addEventListener('click', () => {
+        handlePrev();
+        resetAutoSlide();
+    });
+
+    const startAutoSlide = () => {
+        testiAutoSlideInterval = setInterval(handleNext, 3500);
+    };
+    
+    const resetAutoSlide = () => {
+        clearInterval(testiAutoSlideInterval);
+        startAutoSlide();
+    };
+
+    startAutoSlide();
+
+    // Add drag-to-scroll functionality for testimonials
+    let isTestiDragging = false;
+    let testiStartX;
+    let testiInitialScrollLeft;
+
+    testimonialsCarousel.addEventListener('mousedown', (e) => {
+        clearInterval(testiAutoSlideInterval);
+        isTestiDragging = true;
+        testimonialsCarousel.style.scrollSnapType = 'none';
+        testimonialsCarousel.style.cursor = 'grabbing';
+        testiStartX = e.pageX - testimonialsCarousel.offsetLeft;
+        testiInitialScrollLeft = testimonialsCarousel.scrollLeft;
+    });
+
+    const endTestiDrag = () => {
+        if (!isTestiDragging) return;
+        isTestiDragging = false;
+        testimonialsCarousel.style.scrollSnapType = '';
+        testimonialsCarousel.style.cursor = '';
+        
+        // Handle snap after drag for infinite boundaries
+        const halfWidth = testimonialsCarousel.scrollWidth / 2;
+        if (testimonialsCarousel.scrollLeft >= halfWidth * 1.5) {
+            testimonialsCarousel.scrollLeft -= halfWidth;
+        } else if (testimonialsCarousel.scrollLeft <= 0) {
+            testimonialsCarousel.scrollLeft += halfWidth;
+        }
+        startAutoSlide();
+    };
+
+    testimonialsCarousel.addEventListener('mouseleave', endTestiDrag);
+    testimonialsCarousel.addEventListener('mouseup', endTestiDrag);
+
+    testimonialsCarousel.addEventListener('mousemove', (e) => {
+        if (!isTestiDragging) return;
+        e.preventDefault();
+        const x = e.pageX - testimonialsCarousel.offsetLeft;
+        const walk = (x - testiStartX) * 1;
+        testimonialsCarousel.scrollLeft = testiInitialScrollLeft - walk;
+    });
+    
+    testimonialsCarousel.addEventListener('dragstart', (e) => e.preventDefault());
+
+    testimonialsCarousel.addEventListener('touchstart', () => clearInterval(testiAutoSlideInterval), { passive: true });
+    testimonialsCarousel.addEventListener('touchend', startAutoSlide);
 }
 
 // ── Mobile Menu Toggle ──
@@ -810,8 +929,9 @@ const animStops = [
     { left: 50, top: 110, scale: 1.4, opacity: 1, xOffset: -50, yOffset: -50 },     // 0: Home (was About Hero)
     { left: 100, top: 50, scale: 1, opacity: 1, xOffset: -65, yOffset: -50 },       // 1: Outcomes
     { left: -20, top: 50, scale: 1, opacity: 1, xOffset: 0, yOffset: -50 },         // 2: Works
-    { left: 50, top: 50, scale: 0.8, opacity: 0, xOffset: -50, yOffset: -50 },      // 3: Real About
-    { left: 50, top: 50, scale: 0.8, opacity: 0, xOffset: -50, yOffset: -50 }       // 4: Contact
+    { left: 120, top: 50, scale: 1, opacity: 0, xOffset: -100, yOffset: -50 },      // 3: Testimonials
+    { left: 50, top: 50, scale: 0.8, opacity: 0, xOffset: -50, yOffset: -50 },      // 4: Real About
+    { left: 50, top: 50, scale: 0.8, opacity: 0, xOffset: -50, yOffset: -50 }       // 5: Contact
 ];
 
 let smoothScrollIndex = 0;
