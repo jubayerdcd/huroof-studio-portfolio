@@ -97,44 +97,11 @@
         }
 
         .squircle-rise {
-            animation: riseUp 10s ease-out forwards;
+            transform: translateY(1200px);
         }
 
         .squircle-spin {
             transform-origin: 405px 2000px;
-            animation: spinWave linear infinite;
-        }
-
-        .spin-slow {
-            animation-duration: 7s;
-        }
-
-        .spin-mid {
-            animation-duration: 9s;
-        }
-
-        .spin-fast {
-            animation-duration: 12s;
-        }
-
-        @keyframes riseUp {
-            0% {
-                transform: translateY(1200px);
-            }
-
-            100% {
-                transform: translateY(-200px);
-            }
-        }
-
-        @keyframes spinWave {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
         }
     </style>
 
@@ -785,6 +752,7 @@
     </div>
 
     <!-- ── MOBILE MENU OVERLAY ── -->
+    <div class="mobile-menu-backdrop" id="mobileMenuBackdrop"></div>
     <div class="mobile-menu-overlay" id="mobileMenuOverlay">
         <button class="menu-close-btn" id="menuCloseBtn">&times;</button>
         <div class="menu-links">
@@ -810,9 +778,10 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <script src="https://unpkg.com/split-type"></script>
     <script src="js/main.js" defer></script>
-        <elevenlabs-convai agent-id="agent_0101kr3g3pv3f3h9jtrhezccn9wz"></elevenlabs-convai>
-    <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+    <script src="js/gsap-animations.js" defer></script>
 </body>
 
 </html>

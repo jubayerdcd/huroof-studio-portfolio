@@ -554,17 +554,7 @@ const menuCloseBtn = document.getElementById('menuCloseBtn');
 const mobileMenuLinks = document.querySelectorAll('.menu-links a');
 
 if (mobileMenuBtn && mobileMenuOverlay && menuCloseBtn) {
-    mobileMenuBtn.addEventListener('click', () => {
-        mobileMenuOverlay.classList.add('active');
-    });
-    menuCloseBtn.addEventListener('click', () => {
-        mobileMenuOverlay.classList.remove('active');
-    });
-    mobileMenuLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenuOverlay.classList.remove('active');
-        });
-    });
+    // Mobile menu logic moved to gsap-animations.js for orchestrated timeline
 }
 
 // ── Interactive Parallax Animation ──
@@ -575,6 +565,7 @@ const parallaxIntensities = [4, 8, 14];
 let isAnimVisible = true;
 
 const handleParallax = (clientX, clientY) => {
+    if (window.gsapIsAnimatingHero) return; // Wait for GSAP hero intro to finish
     if (!isAnimVisible || (window.innerWidth <= 800 && activePos !== 'home')) return;
     
     const { innerWidth, innerHeight } = window;
