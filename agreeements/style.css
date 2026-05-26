@@ -1,0 +1,1375 @@
+/* ── AGREEMENTS & CERTIFICATE CUSTOM STYLES ── */
+
+/* Override parent html & body scroll locking from style.css */
+html,
+body {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: auto !important;
+}
+
+body {
+    background-color: #0b0c10 !important;
+    scrollbar-color: var(--gold) #111;
+    scrollbar-width: thin;
+}
+
+/* Reset parent section tag overrides to restore standard vertical layout */
+section {
+    width: auto !important;
+    min-height: 0 !important;
+    position: relative !important;
+    scroll-snap-align: unset !important;
+    scroll-snap-stop: unset !important;
+    overflow: visible !important;
+}
+
+/* Custom Scrollbar */
+body::-webkit-scrollbar {
+    width: 8px;
+}
+body::-webkit-scrollbar-track {
+    background: #0b0c10;
+}
+body::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 4px;
+}
+
+/* ── LAYOUT & CONTAINER ── */
+.agreements-container {
+    width: 90vw;
+    max-width: 950px;
+    margin: 120px auto 80px auto;
+    position: relative;
+    z-index: 10;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.7;
+    color: var(--white);
+}
+
+/* ── TYPOGRAPHY ── */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--white);
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+}
+
+.doc-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.sub-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 8px;
+}
+
+.doc-title {
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.15;
+}
+
+.doc-subtitle {
+    font-size: 1.1rem;
+    color: var(--dim);
+    font-weight: 300;
+}
+
+.lead-text {
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* ── DOCUMENT ACTIONS (Print/Nav Buttons) ── */
+.doc-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+.gold-btn {
+    background: var(--gold);
+    color: #0b0c10;
+    border-color: var(--gold);
+    font-weight: 600;
+}
+
+.gold-btn:hover {
+    background: #dfbc55;
+    border-color: #dfbc55;
+    color: #0b0c10;
+    box-shadow: 0 4px 15px rgba(201, 168, 76, 0.3);
+}
+
+/* ── CARDS (GLASSMORPHIC SYSTEM) ── */
+.contract-card {
+    background: rgba(17, 17, 17, 0.6);
+    border: 1px solid rgba(201, 168, 76, 0.12);
+    border-radius: 16px;
+    padding: 40px;
+    margin-bottom: 30px;
+    position: relative;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.contract-card:hover {
+    border-color: rgba(201, 168, 76, 0.25);
+    box-shadow: 0 8px 32px rgba(201, 168, 76, 0.05);
+}
+
+/* ── POINT CARDS (with card numbers) ── */
+.point-card {
+    display: flex;
+    gap: 30px;
+}
+
+.card-num {
+    flex: 0 0 50px;
+    height: 50px;
+    background: rgba(201, 168, 76, 0.1);
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--gold);
+}
+
+.card-body {
+    flex: 1;
+}
+
+.card-body h2 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--white);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 10px;
+}
+
+/* ── FORM ELEMENTS / DYNAMIC INPUTS ── */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+}
+
+/* Inline design - borderless except bottom underline */
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="date"] {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    padding: 8px 0;
+    outline: none;
+    transition: all 0.3s ease;
+    border-radius: 0;
+    width: 100%;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus {
+    border-bottom-color: var(--gold);
+    box-shadow: 0 1px 0 0 var(--gold);
+}
+
+/* Specific wrappers for prefix/symbols */
+.price-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.price-symbol {
+    color: var(--gold);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-right: 8px;
+    position: absolute;
+    left: 0;
+}
+
+.price-input-wrapper input {
+    padding-left: 20px !important;
+}
+
+/* Grids for inputs */
+.parties-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+}
+
+.party-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.party-title::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background: var(--gold);
+}
+
+.project-details-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 30px;
+    margin-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 25px;
+}
+
+.payment-setup-row,
+.rates-row {
+    display: flex;
+    gap: 20px;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.flex-1 { flex: 1; }
+.flex-2 { flex: 2; }
+
+/* ── CHECKLIST ITEMS ── */
+.checklist-items {
+    list-style: none;
+    margin-top: 15px;
+}
+
+.checklist-items li {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+    font-weight: 300;
+}
+
+.bullet-icon {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.check-yes .bullet-icon,
+.yes-icon {
+    background: rgba(201, 168, 76, 0.15);
+    color: var(--gold);
+    border: 1px solid var(--gold);
+}
+
+.check-no .bullet-icon,
+.no-icon {
+    background: rgba(239, 83, 80, 0.1);
+    color: #ef5350;
+    border: 1px solid rgba(239, 83, 80, 0.3);
+}
+
+/* ── TIMELINE ── */
+.timeline-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+    position: relative;
+    padding-left: 20px;
+    border-left: 1px dashed rgba(201, 168, 76, 0.25);
+}
+
+.timeline-step {
+    position: relative;
+}
+
+.step-badge {
+    position: absolute;
+    left: -88px;
+    top: 0;
+    background: #1e2025;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--dim);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.timeline-step p {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 300;
+}
+
+.timeline-step p span {
+    color: var(--gold);
+    font-weight: 500;
+}
+
+/* ── NOTES / ALERTS ── */
+.note-box {
+    background: rgba(255, 255, 255, 0.02);
+    border-left: 3px solid var(--dim);
+    padding: 15px 20px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.note-tag {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    color: var(--dim);
+}
+
+.alert-note {
+    border-left-color: var(--gold);
+}
+.alert-note .note-tag {
+    color: var(--gold);
+}
+
+.advisory-note {
+    border-left-color: var(--gold);
+    background: rgba(201, 168, 76, 0.03);
+}
+.advisory-note .note-tag {
+    color: var(--gold);
+}
+
+/* ── OWNERSHIP DUAL BLOCKS ── */
+.dual-block-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.dual-block {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.dual-block h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.before-payment h3 {
+    color: #ef5350;
+}
+
+.after-payment h3 {
+    color: var(--gold);
+}
+
+.dual-block p {
+    font-size: 0.88rem;
+    font-weight: 300;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.copyright-statement, .portfolio-allowance {
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* ── CANCELLATION ── */
+.cancellation-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 15px;
+}
+
+.cancel-condition {
+    display: flex;
+    gap: 15px;
+}
+
+.cancel-condition h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.cancel-condition p {
+    font-size: 0.88rem;
+    font-weight: 300;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* ── SIGNATURE PANEL ── */
+.signature-panel h2 {
+    font-size: 1.8rem;
+    color: var(--gold);
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.agreement-intro {
+    font-size: 1rem;
+    text-align: center;
+    color: var(--dim);
+    margin-bottom: 40px;
+}
+
+.signatures-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+}
+
+.signature-box-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.signature-box-wrapper h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.signature-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.sig-tab-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--dim);
+    padding: 6px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.sig-tab-btn.active {
+    background: var(--gold);
+    color: #0b0c10;
+    border-color: var(--gold);
+    font-weight: 600;
+}
+
+/* Canvas drawing pad */
+.signature-pad-container {
+    background: #050608;
+    border: 1px dashed rgba(201, 168, 76, 0.35);
+    border-radius: 8px;
+    height: 180px;
+    position: relative;
+    cursor: crosshair;
+    overflow: hidden;
+}
+
+.sig-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    touch-action: none; /* Prevents scrolling while signing */
+}
+
+.clear-sig-btn {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--dim);
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 5;
+}
+
+.clear-sig-btn:hover {
+    color: var(--white);
+    border-color: rgba(255, 255, 255, 0.3);
+    background: #000;
+}
+
+/* Text typed signature input */
+.signature-type-container {
+    background: #050608;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    height: 180px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sig-type-input {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 6px !important;
+    padding: 8px 12px !important;
+    font-size: 0.9rem !important;
+}
+
+.sig-font-preview {
+    font-size: 1.8rem;
+    text-align: center;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    margin-top: 10px;
+    user-select: none;
+}
+
+.designer-sig-preview {
+    font-family: 'Playball', cursive;
+}
+
+.client-sig-preview {
+    font-family: 'Dancing Script', cursive;
+}
+
+.signature-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Helper spacing classes */
+.mt-5 { margin-top: 5px; }
+.mt-10 { margin-top: 10px; }
+.mt-15 { margin-top: 15px; }
+.mt-20 { margin-top: 20px; }
+.mt-25 { margin-top: 25px; }
+.mt-20 { margin-top: 20px; }
+
+
+/* ── ── ── ── ── ── ── ── ── ── ── ── ── ──
+           LICENSE CERTIFICATE (PAGE 2)
+   ── ── ── ── ── ── ── ── ── ── ── ── ── ── */
+
+.certificate-wrapper {
+    margin-top: 80px;
+    position: relative;
+}
+
+.certificate-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+/* Premium Certificate Canvas Frame */
+.certificate-container {
+    background-color: #0d0f14;
+    border: 1px solid rgba(201, 168, 76, 0.2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+    padding: 50px;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    /* Use background calligraphy pattern */
+    background-image: url('../assets/revisions/arabic-calligraphy-seamless-pattern-for-background.webp');
+    background-repeat: repeat;
+    background-size: 300px;
+}
+
+/* Overlay dark tint to keep pattern very subtle inside certificate */
+.certificate-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(13, 15, 20, 0.95);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.cert-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Gold Ornamental Borders */
+.cert-border-outer {
+    position: absolute;
+    inset: 15px;
+    border: 1px solid #c9a84c;
+    pointer-events: none;
+    opacity: 0.45;
+}
+
+.cert-border-inner {
+    position: absolute;
+    inset: 22px;
+    border: 2px double #c9a84c;
+    pointer-events: none;
+    opacity: 0.85;
+}
+
+/* Decorative Gold Corners */
+.cert-corner {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    border-color: #c9a84c;
+    border-style: solid;
+    pointer-events: none;
+    opacity: 0.9;
+}
+.cert-corner.top-left {
+    top: 20px;
+    left: 20px;
+    border-width: 3px 0 0 3px;
+}
+.cert-corner.top-right {
+    top: 20px;
+    right: 20px;
+    border-width: 3px 3px 0 0;
+}
+.cert-corner.bottom-left {
+    bottom: 20px;
+    left: 20px;
+    border-width: 0 0 3px 3px;
+}
+.cert-corner.bottom-right {
+    bottom: 20px;
+    right: 20px;
+    border-width: 0 3px 3px 0;
+}
+
+/* Certificate Header */
+.cert-header {
+    text-align: center;
+    margin-bottom: 35px;
+    padding-top: 15px;
+}
+
+.cert-logo-icon {
+    height: 36px;
+    width: auto;
+    filter: brightness(0) invert(1);
+    margin-bottom: 12px;
+}
+
+.cert-meta-tag {
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--dim);
+    display: block;
+    margin-bottom: 6px;
+}
+
+.cert-title {
+    font-size: 1.85rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.cert-subtitle {
+    font-size: 0.95rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    color: var(--white);
+    text-transform: uppercase;
+}
+
+/* Main Grid Layout inside Cert */
+.cert-body-grid {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: 40px;
+    align-items: start;
+    margin-bottom: 25px;
+}
+
+/* Details Table inside Cert */
+.cert-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.cert-details-table th,
+.cert-details-table td {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+    font-size: 0.88rem;
+    text-align: left;
+}
+
+.cert-details-table th {
+    width: 38%;
+    font-weight: 600;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.cert-details-table td {
+    color: var(--white);
+    font-weight: 400;
+}
+
+/* Sync style input replacement */
+.editable-sync {
+    display: inline-block;
+    min-width: 80px;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.25);
+    padding-bottom: 1px;
+    outline: none;
+    cursor: text;
+    transition: all 0.2s ease;
+}
+
+.editable-sync:focus {
+    border-bottom: 1px solid var(--gold);
+    color: var(--gold);
+}
+
+.cert-license-clauses h4 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--gold);
+    margin-bottom: 8px;
+}
+
+.cert-license-clauses ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cert-license-clauses li {
+    font-size: 0.78rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.8);
+    position: relative;
+    padding-left: 14px;
+    margin-bottom: 6px;
+    line-height: 1.5;
+}
+
+.cert-license-clauses li::before {
+    content: '•';
+    color: var(--gold);
+    position: absolute;
+    left: 0;
+    top: -1px;
+}
+
+/* Logo Showcase Area (Right Block) */
+.cert-logo-showcase {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.logo-frame-wrapper {
+    width: 100%;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.frame-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--dim);
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Drag & Drop Upload Zone */
+.logo-upload-zone {
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px dashed rgba(201, 168, 76, 0.35);
+    border-radius: 12px;
+    aspect-ratio: 1/1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.logo-upload-zone:hover,
+.logo-upload-zone.dragover {
+    border-color: var(--gold);
+    background: rgba(201, 168, 76, 0.03);
+    box-shadow: inset 0 0 20px rgba(201, 168, 76, 0.1);
+}
+
+.upload-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.upload-icon {
+    animation: pulse 2.5s infinite;
+}
+
+.upload-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--gold);
+}
+
+.upload-instructions {
+    font-size: 0.7rem;
+    color: var(--dim);
+    line-height: 1.4;
+}
+
+/* Loaded Logo Preview */
+.logo-preview-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    background: #000; /* Force pure black background to contrast light logos */
+}
+
+.logo-preview-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+}
+
+.remove-logo-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(239, 83, 80, 0.85);
+    color: #fff;
+    border: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-weight: bold;
+    z-index: 10;
+}
+
+.remove-logo-btn:hover {
+    background: #ef5350;
+}
+
+/* Legal Footer text */
+.cert-legal-text {
+    border-top: 1px solid rgba(201, 168, 76, 0.12);
+    padding-top: 15px;
+    margin-top: 5px;
+}
+
+.cert-legal-text p {
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.4;
+    margin: 0;
+    text-align: justify;
+}
+
+/* Certificate Footer layout */
+.cert-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.1fr;
+    gap: 30px;
+    margin-top: 30px;
+    align-items: end;
+}
+
+.cert-sign-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.cert-sign-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--dim);
+    margin-bottom: 6px;
+}
+
+.cert-sign-display-box {
+    height: 60px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cert-sig-img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    filter: brightness(0) invert(1); /* Forces drawing stroke to display white on dark background */
+}
+
+.cert-sig-typed {
+    font-size: 1.4rem;
+    color: var(--gold);
+    line-height: 1;
+}
+
+.cert-sign-name {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 6px;
+    text-align: center;
+}
+
+.cert-ref-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.cert-ref-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--dim);
+    margin-bottom: 4px;
+}
+
+.cert-ref-value {
+    font-family: monospace;
+    font-size: 0.9rem;
+    color: var(--gold);
+    border-bottom: 1px dashed rgba(201, 168, 76, 0.25);
+    outline: none;
+}
+
+.cert-ref-value:focus {
+    border-bottom: 1px solid var(--gold);
+}
+
+
+/* Pulse Animation for Logo Upload Zone */
+@keyframes pulse {
+    0% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+}
+
+
+/* ── ── ── ── ── ── ── ── ── ── ── ── ── ──
+           RESPONSIVE OVERRIDES
+   ── ── ── ── ── ── ── ── ── ── ── ── ── ── */
+
+@media (max-width: 900px) {
+    .parties-grid,
+    .signatures-grid,
+    .cert-body-grid,
+    .cancellation-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .timeline-container {
+        padding-left: 0;
+        border-left: none;
+    }
+    
+    .step-badge {
+        position: static;
+        display: inline-block;
+        margin-bottom: 4px;
+    }
+    
+    .timeline-step {
+        background: rgba(255, 255, 255, 0.02);
+        padding: 12px 15px;
+        border-radius: 6px;
+    }
+
+    .project-details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .payment-setup-row,
+    .rates-row {
+        flex-direction: column;
+    }
+    
+    .cert-logo-showcase {
+        margin-top: 20px;
+    }
+    
+    .cert-footer {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .cert-ref-col {
+        align-items: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .agreements-container {
+        margin-top: 90px;
+    }
+    
+    .contract-card {
+        padding: 24px;
+    }
+    
+    .point-card {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .card-num {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+    
+    .certificate-container {
+        padding: 28px 20px;
+    }
+    
+    .cert-border-outer { inset: 8px; }
+    .cert-border-inner { inset: 12px; }
+    .cert-corner { width: 18px; height: 18px; }
+    .cert-corner.top-left { top: 10px; left: 10px; }
+    .cert-corner.top-right { top: 10px; right: 10px; }
+    .cert-corner.bottom-left { bottom: 10px; left: 10px; }
+    .cert-corner.bottom-right { bottom: 10px; right: 10px; }
+    
+    .cert-title {
+        font-size: 1.3rem;
+    }
+    .cert-subtitle {
+        font-size: 0.78rem;
+    }
+    
+    .doc-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+
+/* ── ── ── ── ── ── ── ── ── ── ── ── ── ──
+           PRINT STYLESYSTEM OVERRIDES
+   ── ── ── ── ── ── ── ── ── ── ── ── ── ── */
+
+@media print {
+    /* Hide scrollbars, backgrounds, layouts that shouldn't print */
+    body {
+        background: #fff !important;
+        color: #000 !important;
+        overflow: visible !important;
+        height: auto !important;
+    }
+
+    body::before {
+        display: none !important;
+    }
+
+    .logo,
+    .mobile-header-bg,
+    .mobile-menu-btn,
+    .right-nav,
+    .left-socials,
+    .no-print,
+    .doc-actions,
+    .certificate-actions,
+    .signature-tabs,
+    .clear-sig-btn,
+    .remove-logo-btn {
+        display: none !important;
+    }
+
+    /* Print margins / paper size */
+    @page {
+        size: portrait;
+        margin: 15mm;
+    }
+
+    .agreements-container {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .contract-card {
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 20px 0 !important;
+        margin-bottom: 20px !important;
+        page-break-inside: avoid;
+        color: #000 !important;
+    }
+
+    .card-num {
+        border-color: #000 !important;
+        color: #000 !important;
+    }
+
+    /* Inputs style for print (show values flat, no boxes) */
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="date"] {
+        color: #000 !important;
+        border-bottom: 1px solid #555 !important;
+    }
+
+    .price-symbol {
+        color: #000 !important;
+    }
+
+    .check-yes .bullet-icon,
+    .yes-icon {
+        background: none !important;
+        border-color: #000 !important;
+        color: #000 !important;
+    }
+
+    .check-no .bullet-icon,
+    .no-icon {
+        background: none !important;
+        border-color: #000 !important;
+        color: #000 !important;
+    }
+
+    .note-box {
+        background: #f5f5f5 !important;
+        border-left-color: #333 !important;
+        color: #000 !important;
+    }
+    
+    .timeline-step {
+        background: none !important;
+        border: none !important;
+    }
+
+    .signature-pad-container,
+    .signature-type-container {
+        border: 1px solid #555 !important;
+        background: #fff !important;
+    }
+    
+    .sig-font-preview {
+        color: #000 !important;
+    }
+
+    .sig-canvas {
+        filter: invert(1); /* Draw strokes show up black on print */
+    }
+
+    .page-break {
+        page-break-before: always !important;
+        display: block;
+        height: 1px;
+    }
+
+    /* Print layout for Certificate (Landscape break) */
+    .certificate-container {
+        background: #0d0f14 !important; /* Retain visual prestige on prints if PDF, or let print handle background colors */
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        box-shadow: none !important;
+        border: 1px solid #c9a84c !important;
+    }
+
+    .cert-border-outer {
+        border-color: #c9a84c !important;
+    }
+
+    .cert-border-inner {
+        border-color: #c9a84c !important;
+    }
+
+    .cert-corner {
+        border-color: #c9a84c !important;
+    }
+
+    /* If they requested printing ONLY the certificate ( landscape mode ) */
+    body.print-only-cert {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    body.print-only-cert @page {
+        size: A4 landscape;
+        margin: 0;
+    }
+
+    body.print-only-cert .agreements-container {
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    body.print-only-cert .agreements-container > *:not(.certificate-wrapper) {
+        display: none !important;
+    }
+
+    body.print-only-cert .certificate-wrapper {
+        margin-top: 0 !important;
+    }
+
+    body.print-only-cert .certificate-container {
+        width: 297mm !important;
+        height: 210mm !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        border-radius: 0 !important;
+        border: none !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+        padding: 40px !important;
+    }
+
+    body.print-only-cert .cert-sig-img {
+        filter: brightness(0) invert(1) !important; /* Keep signature white on dark print background */
+    }
+}
