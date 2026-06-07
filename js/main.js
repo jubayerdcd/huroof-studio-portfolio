@@ -42,11 +42,12 @@ if (siteLoader) {
 const outcomeItems = [
     { serial: 4, type: 'video', src: 'assets/final-outcome-carholder-images/boite-verte.mp4' },
     { serial: 5, type: 'video', src: 'assets/final-outcome-carholder-images/mobile-cover.mp4' },
-    { serial: 8, type: 'video', src: 'assets/final-outcome-carholder-images/tableware.mp4' },
+    { serial: 9, type: 'video', src: 'assets/final-outcome-carholder-images/tableware.mp4' },
     { serial: 2, type: 'image', src: 'assets/final-outcome-carholder-images/the-lantern-1.webp' },
     { serial: 3, type: 'image', src: 'assets/final-outcome-carholder-images/chandeliear.webp' },
-    { serial: 7, type: 'image', src: 'assets/final-outcome-carholder-images/packaging.webp' },
-    { serial: 6, type: 'image', src: 'assets/final-outcome-carholder-images/panjabi.webp' },
+    { serial: 8, type: 'image', src: 'assets/final-outcome-carholder-images/packaging.webp' },
+    { serial: 6, type: 'video', src: 'assets/final-outcome-carholder-images/Artistic Calligraphic Product packaging promo video for Satata Panjabi.mp4' },
+    { serial: 7, type: 'image', src: 'assets/final-outcome-carholder-images/panjabi.webp' },
     { serial: 1, type: 'image', src: 'assets/final-outcome-carholder-images/tableware.webp' }
 ];
 
@@ -58,7 +59,10 @@ function renderOutcomes() {
     // Sort by serial number
     const sortedItems = [...outcomeItems].sort((a, b) => a.serial - b.serial);
 
-    carousel.innerHTML = sortedItems.map(item => {
+    // Duplicate the items for seamless infinite marquee loop
+    const doubledItems = [...sortedItems, ...sortedItems];
+
+    carousel.innerHTML = doubledItems.map(item => {
         if (item.type === 'video') {
             return `<div class="outcome-card"><video data-src="${item.src}" loop muted playsinline preload="none"></video></div>`;
         } else {
@@ -66,17 +70,8 @@ function renderOutcomes() {
         }
     }).join('');
 
+    // Indicators are hidden via CSS, but populate them just in case
     indicators.innerHTML = sortedItems.map((_, i) => `<div class="dot ${i === 0 ? 'active' : ''}" data-index="${i}"></div>`).join('');
-
-    // Re-bind dots
-    const dots = indicators.querySelectorAll('.dot');
-    dots.forEach((dot, i) => {
-        dot.addEventListener('click', () => {
-            const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-            const targetScroll = (i / (dots.length - 1)) * maxScroll;
-            carousel.scrollTo({ left: targetScroll, behavior: 'smooth' });
-        });
-    });
 }
 renderOutcomes();
 
@@ -128,35 +123,55 @@ window.addEventListener('resize', handleResize);
 calculateOffsets(); // Initial call
 
 
-// ✨ PLAY WITH THIS VALUE TO ADJUST THE CAROUSEL SIDE-SCROLL TIME (in milliseconds) ✨
-const AUTO_SLIDE_TIME_MS = 2000; // 2 seconds
+// ── GSAP Marquee Autoplay Logic ──
+let marqueeTween = null;
+let isInteractingWithCarousel = false;
 
-let autoSlideInterval;
-let autoSlideTimeout;
 const startAutoSlide = () => {
     if (!carousel) return;
-    clearInterval(autoSlideInterval);
-    clearTimeout(autoSlideTimeout);
+    if (isInteractingWithCarousel) return;
 
-    // Wait exactly 1 second before the first slide
-    autoSlideTimeout = setTimeout(() => {
-        const slideAction = () => {
-            const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-            let nextScroll = carousel.scrollLeft + 340;
-            if (nextScroll > maxScroll + 10) nextScroll = 0;
-            carousel.scrollTo({ left: nextScroll, behavior: 'smooth' });
-        };
+    const N = outcomeItems.length; // 9 items
+    if (!carousel.children || carousel.children.length < N + 1) return;
 
-        // Execute the first slide
-        slideAction();
+    // Calculate targetScroll robustly by summing first N child widths + gaps
+    const gap = parseInt(window.getComputedStyle(carousel).gap) || 20;
+    let targetScroll = 0;
+    for (let i = 0; i < N; i++) {
+        targetScroll += carousel.children[i].offsetWidth + gap;
+    }
 
-        // Start the normal interval for subsequent slides
-        autoSlideInterval = setInterval(slideAction, AUTO_SLIDE_TIME_MS);
-    }, 1000); // 1 second initial delay
+    if (targetScroll <= 0) return;
+
+    let currentScroll = carousel.scrollLeft;
+    // Wrap around if we've scrolled past the loop boundary
+    if (currentScroll >= targetScroll) {
+        currentScroll = currentScroll % targetScroll;
+        carousel.scrollLeft = currentScroll;
+    }
+
+    const remainingDistance = targetScroll - currentScroll;
+    const speed = 65; // Pixels per second (adjust for smooth marquee speed)
+    const duration = remainingDistance / speed;
+
+    if (marqueeTween) marqueeTween.kill();
+
+    marqueeTween = gsap.to(carousel, {
+        scrollLeft: targetScroll,
+        duration: duration,
+        ease: "none",
+        onComplete: () => {
+            carousel.scrollLeft = 0;
+            startAutoSlide(); // Loop infinitely
+        }
+    });
 };
+
 const stopAutoSlide = () => {
-    clearInterval(autoSlideInterval);
-    clearTimeout(autoSlideTimeout);
+    if (marqueeTween) {
+        marqueeTween.kill();
+        marqueeTween = null;
+    }
 };
 
 // ── Section Intersection Observer ──
@@ -293,6 +308,18 @@ document.querySelectorAll('.pill').forEach(pill => {
     });
 });
 
+// ── Social Proof Click Smooth Scroll ──
+const socialProofLink = document.querySelector('.social-proof');
+if (socialProofLink) {
+    socialProofLink.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.getElementById('testimonials');
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+}
+
 // ── Nav click Direct Animation Transit ──
 let isDirectTransit = false;
 let transitStart = null;
@@ -349,12 +376,29 @@ menuLinks.forEach(a => {
 
 // Removed Horizontal Scroll Interception for Outcomes so mouse wheel scrolls normally
 
-// ── Outcomes Carousel Indicators Update ──
+// ── Outcomes Carousel Scroll & Wrapping Logic ──
 if (carousel) {
+    // Seamless wrapping logic on manual scroll
     carousel.addEventListener('scroll', () => {
+        const N = outcomeItems.length;
+        if (carousel.children && carousel.children.length >= N + 1) {
+            const gap = parseInt(window.getComputedStyle(carousel).gap) || 20;
+            let targetScroll = 0;
+            for (let i = 0; i < N; i++) {
+                targetScroll += carousel.children[i].offsetWidth + gap;
+            }
+            if (targetScroll > 0) {
+                if (carousel.scrollLeft >= targetScroll) {
+                    carousel.scrollLeft = carousel.scrollLeft % targetScroll;
+                } else if (carousel.scrollLeft < 0) {
+                    carousel.scrollLeft = targetScroll + (carousel.scrollLeft % targetScroll);
+                }
+            }
+        }
+
+        // Active dot updating (just in case)
         const dots = document.querySelectorAll('#outcomesIndicators .dot');
         if (dots.length === 0) return;
-
         const scrollLeft = carousel.scrollLeft;
         const maxScroll = carousel.scrollWidth - carousel.clientWidth;
         let dotIndex = 0;
@@ -366,6 +410,8 @@ if (carousel) {
         });
     });
 
+
+
     // ── Mouse Drag-to-Scroll & Pause Logic ──
     let isDragging = false;
     let startX;
@@ -373,7 +419,7 @@ if (carousel) {
 
     carousel.addEventListener('mousedown', (e) => {
         isDragging = true;
-        // Disable scroll sorting physics natively so dragging isn't jittery
+        isInteractingWithCarousel = true;
         carousel.style.scrollSnapType = 'none';
         carousel.style.cursor = 'grabbing';
         
@@ -385,7 +431,7 @@ if (carousel) {
     const endDrag = () => {
         if (!isDragging) return;
         isDragging = false;
-        // Restore browser snap
+        isInteractingWithCarousel = false;
         carousel.style.scrollSnapType = '';
         carousel.style.cursor = '';
         
@@ -399,41 +445,125 @@ if (carousel) {
         if (!isDragging) return;
         e.preventDefault();
         const x = e.pageX - carousel.offsetLeft;
-        const walk = (x - startX) * 1; // True 1:1 tracking matching mobile physically
+        const walk = (x - startX) * 1; 
         carousel.scrollLeft = initialScrollLeft - walk;
     });
 
-    // Prevent native image dragging from ruining the drag experience
     carousel.addEventListener('dragstart', (e) => e.preventDefault());
 
     // For touch devices, pause on interaction
-    carousel.addEventListener('touchstart', stopAutoSlide, { passive: true });
+    carousel.addEventListener('touchstart', () => {
+        isInteractingWithCarousel = true;
+        stopAutoSlide();
+    }, { passive: true });
+
     carousel.addEventListener('touchend', () => {
+        isInteractingWithCarousel = false;
         if (isCarouselVisible) startAutoSlide();
     });
 
-    // Arrow controls (Hidden in latest requested layout but logic kept)
+    // Arrow controls
     const prevBtn = document.getElementById('prevCard');
     const nextBtn = document.getElementById('nextCard');
+    
+    let nudgeTimeout = null;
+    const nudgeCarousel = (direction) => {
+        stopAutoSlide();
+        isInteractingWithCarousel = true;
+
+        const cardWidth = carousel.children[0].offsetWidth + 20; // 340px (card + gap)
+        let targetScroll = carousel.scrollLeft + (direction * cardWidth);
+
+        const N = outcomeItems.length; // 9 items
+        const gap = parseInt(window.getComputedStyle(carousel).gap) || 20;
+        let maxScroll = 0;
+        for (let i = 0; i < N; i++) {
+            maxScroll += carousel.children[i].offsetWidth + gap;
+        }
+
+        if (targetScroll >= maxScroll) {
+            targetScroll = targetScroll % maxScroll;
+        } else if (targetScroll < 0) {
+            targetScroll = maxScroll + (targetScroll % maxScroll);
+        }
+
+        if (marqueeTween) marqueeTween.kill();
+
+        marqueeTween = gsap.to(carousel, {
+            scrollLeft: targetScroll,
+            duration: 0.6,
+            ease: "power2.out",
+            onComplete: () => {
+                isInteractingWithCarousel = false;
+                clearTimeout(nudgeTimeout);
+                nudgeTimeout = setTimeout(() => {
+                    if (isCarouselVisible) startAutoSlide();
+                }, 2000);
+            }
+        });
+    };
+
     if (prevBtn && nextBtn) {
-        prevBtn.addEventListener('click', () => {
-            carousel.scrollTo({ left: carousel.scrollLeft - 340, behavior: 'smooth' });
-        });
-        nextBtn.addEventListener('click', () => {
-            const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-            let nextScroll = carousel.scrollLeft + 340;
-            if (nextScroll > maxScroll + 10) nextScroll = 0;
-            carousel.scrollTo({ left: nextScroll, behavior: 'smooth' });
-        });
+        prevBtn.addEventListener('click', () => nudgeCarousel(-1));
+        nextBtn.addEventListener('click', () => nudgeCarousel(1));
     }
 }
 
-// ── Testimonials Carousel Controls (Endless Scrolling) ──
+// ── Testimonials Carousel Controls (Endless Smooth Marquee with GSAP) ──
 const testimonialsCarousel = document.getElementById('testimonialsCarousel');
-const prevTestiBtn = document.getElementById('prevTestiCard');
-const nextTestiBtn = document.getElementById('nextTestiCard');
 
-if (testimonialsCarousel && prevTestiBtn && nextTestiBtn) {
+let testiMarqueeTween = null;
+let isInteractingWithTesti = false;
+let isTestiVisible = false;
+
+const startTestiAutoSlide = () => {
+    if (!testimonialsCarousel) return;
+    if (isInteractingWithTesti) return;
+
+    const N = testimonialsCarousel.children.length / 2; // cloned children exist, so original is half
+    if (N <= 0) return;
+
+    // Calculate targetScroll robustly by summing first N child widths + gaps
+    const gap = parseInt(window.getComputedStyle(testimonialsCarousel).gap) || 20;
+    let targetScroll = 0;
+    for (let i = 0; i < N; i++) {
+        targetScroll += testimonialsCarousel.children[i].offsetWidth + gap;
+    }
+
+    if (targetScroll <= 0) return;
+
+    let currentScroll = testimonialsCarousel.scrollLeft;
+    // Wrap around if we've scrolled past the loop boundary
+    if (currentScroll >= targetScroll) {
+        currentScroll = currentScroll % targetScroll;
+        testimonialsCarousel.scrollLeft = currentScroll;
+    }
+
+    const remainingDistance = targetScroll - currentScroll;
+    const speed = 65; // Pixels per second (matching Highlights speed!)
+    const duration = remainingDistance / speed;
+
+    if (testiMarqueeTween) testiMarqueeTween.kill();
+
+    testiMarqueeTween = gsap.to(testimonialsCarousel, {
+        scrollLeft: targetScroll,
+        duration: duration,
+        ease: "none",
+        onComplete: () => {
+            testimonialsCarousel.scrollLeft = 0;
+            startTestiAutoSlide(); // Loop infinitely
+        }
+    });
+};
+
+const stopTestiAutoSlide = () => {
+    if (testiMarqueeTween) {
+        testiMarqueeTween.kill();
+        testiMarqueeTween = null;
+    }
+};
+
+if (testimonialsCarousel) {
     // Clone children for infinite loop
     const originalCards = Array.from(testimonialsCarousel.children);
     originalCards.forEach(card => {
@@ -441,93 +571,50 @@ if (testimonialsCarousel && prevTestiBtn && nextTestiBtn) {
         testimonialsCarousel.appendChild(clone);
     });
 
-    let testiAutoSlideInterval;
-    
-    const getScrollStep = () => {
-        const firstCard = testimonialsCarousel.querySelector('.testimonial-card');
-        const gap = parseInt(window.getComputedStyle(testimonialsCarousel).gap) || 20;
-        return firstCard.offsetWidth + gap;
-    };
-
-    const handleNext = () => {
-        const step = getScrollStep();
-        const halfWidth = testimonialsCarousel.scrollWidth / 2;
-        
-        if (testimonialsCarousel.scrollLeft >= halfWidth - 5) {
-            testimonialsCarousel.style.scrollSnapType = 'none';
-            testimonialsCarousel.scrollLeft = 0;
-            void testimonialsCarousel.offsetWidth; // Force reflow
-            testimonialsCarousel.style.scrollSnapType = 'x mandatory';
-            testimonialsCarousel.scrollTo({ left: step, behavior: 'smooth' });
-        } else {
-            testimonialsCarousel.scrollTo({ left: testimonialsCarousel.scrollLeft + step, behavior: 'smooth' });
+    // Seamless wrapping logic on manual scroll
+    testimonialsCarousel.addEventListener('scroll', () => {
+        const N = testimonialsCarousel.children.length / 2;
+        if (N > 0) {
+            const gap = parseInt(window.getComputedStyle(testimonialsCarousel).gap) || 20;
+            let targetScroll = 0;
+            for (let i = 0; i < N; i++) {
+                targetScroll += testimonialsCarousel.children[i].offsetWidth + gap;
+            }
+            if (targetScroll > 0) {
+                if (testimonialsCarousel.scrollLeft >= targetScroll) {
+                    testimonialsCarousel.scrollLeft = testimonialsCarousel.scrollLeft % targetScroll;
+                } else if (testimonialsCarousel.scrollLeft < 0) {
+                    testimonialsCarousel.scrollLeft = targetScroll + (testimonialsCarousel.scrollLeft % targetScroll);
+                }
+            }
         }
-    };
-
-    const handlePrev = () => {
-        const step = getScrollStep();
-        const halfWidth = testimonialsCarousel.scrollWidth / 2;
-        
-        if (testimonialsCarousel.scrollLeft <= 5) {
-            testimonialsCarousel.style.scrollSnapType = 'none';
-            testimonialsCarousel.scrollLeft = halfWidth;
-            void testimonialsCarousel.offsetWidth; // Force reflow
-            testimonialsCarousel.style.scrollSnapType = 'x mandatory';
-            testimonialsCarousel.scrollTo({ left: halfWidth - step, behavior: 'smooth' });
-        } else {
-            testimonialsCarousel.scrollTo({ left: testimonialsCarousel.scrollLeft - step, behavior: 'smooth' });
-        }
-    };
-
-    nextTestiBtn.addEventListener('click', () => {
-        handleNext();
-        resetAutoSlide();
-    });
-    
-    prevTestiBtn.addEventListener('click', () => {
-        handlePrev();
-        resetAutoSlide();
     });
 
-    const startAutoSlide = () => {
-        testiAutoSlideInterval = setInterval(handleNext, 3500);
-    };
-    
-    const resetAutoSlide = () => {
-        clearInterval(testiAutoSlideInterval);
-        startAutoSlide();
-    };
 
-    startAutoSlide();
 
-    // Add drag-to-scroll functionality for testimonials
+    // Drag-to-Scroll logic for Testimonials
     let isTestiDragging = false;
     let testiStartX;
     let testiInitialScrollLeft;
 
     testimonialsCarousel.addEventListener('mousedown', (e) => {
-        clearInterval(testiAutoSlideInterval);
         isTestiDragging = true;
+        isInteractingWithTesti = true;
         testimonialsCarousel.style.scrollSnapType = 'none';
         testimonialsCarousel.style.cursor = 'grabbing';
         testiStartX = e.pageX - testimonialsCarousel.offsetLeft;
         testiInitialScrollLeft = testimonialsCarousel.scrollLeft;
+        stopTestiAutoSlide();
     });
 
     const endTestiDrag = () => {
         if (!isTestiDragging) return;
         isTestiDragging = false;
+        isInteractingWithTesti = false;
         testimonialsCarousel.style.scrollSnapType = '';
         testimonialsCarousel.style.cursor = '';
         
-        // Handle snap after drag for infinite boundaries
-        const halfWidth = testimonialsCarousel.scrollWidth / 2;
-        if (testimonialsCarousel.scrollLeft >= halfWidth * 1.5) {
-            testimonialsCarousel.scrollLeft -= halfWidth;
-        } else if (testimonialsCarousel.scrollLeft <= 0) {
-            testimonialsCarousel.scrollLeft += halfWidth;
-        }
-        startAutoSlide();
+        if (isTestiVisible) startTestiAutoSlide();
     };
 
     testimonialsCarousel.addEventListener('mouseleave', endTestiDrag);
@@ -543,8 +630,91 @@ if (testimonialsCarousel && prevTestiBtn && nextTestiBtn) {
     
     testimonialsCarousel.addEventListener('dragstart', (e) => e.preventDefault());
 
-    testimonialsCarousel.addEventListener('touchstart', () => clearInterval(testiAutoSlideInterval), { passive: true });
-    testimonialsCarousel.addEventListener('touchend', startAutoSlide);
+    // Touch events for Testimonials
+    testimonialsCarousel.addEventListener('touchstart', () => {
+        isInteractingWithTesti = true;
+        stopTestiAutoSlide();
+    }, { passive: true });
+
+    testimonialsCarousel.addEventListener('touchend', () => {
+        isInteractingWithTesti = false;
+        if (isTestiVisible) startTestiAutoSlide();
+    });
+
+    // Arrow controls for Testimonials
+    const prevTestiBtn = document.getElementById('prevTestiCard');
+    const nextTestiBtn = document.getElementById('nextTestiCard');
+    
+    let testiNudgeTimeout = null;
+    const nudgeTestiCarousel = (direction) => {
+        stopTestiAutoSlide();
+        isInteractingWithTesti = true;
+
+        const cardWidth = testimonialsCarousel.children[0].offsetWidth + 20; 
+        let targetScroll = testimonialsCarousel.scrollLeft + (direction * cardWidth);
+
+        const N = testimonialsCarousel.children.length / 2; 
+        const gap = parseInt(window.getComputedStyle(testimonialsCarousel).gap) || 20;
+        let maxScroll = 0;
+        for (let i = 0; i < N; i++) {
+            maxScroll += testimonialsCarousel.children[i].offsetWidth + gap;
+        }
+
+        if (targetScroll >= maxScroll) {
+            targetScroll = targetScroll % maxScroll;
+        } else if (targetScroll < 0) {
+            targetScroll = maxScroll + (targetScroll % maxScroll);
+        }
+
+        if (testiMarqueeTween) testiMarqueeTween.kill();
+
+        testiMarqueeTween = gsap.to(testimonialsCarousel, {
+            scrollLeft: targetScroll,
+            duration: 0.6,
+            ease: "power2.out",
+            onComplete: () => {
+                isInteractingWithTesti = false;
+                clearTimeout(testiNudgeTimeout);
+                testiNudgeTimeout = setTimeout(() => {
+                    if (isTestiVisible) startTestiAutoSlide();
+                }, 2000);
+            }
+        });
+    };
+
+    if (prevTestiBtn && nextTestiBtn) {
+        prevTestiBtn.addEventListener('click', () => nudgeTestiCarousel(-1));
+        nextTestiBtn.addEventListener('click', () => nudgeTestiCarousel(1));
+    }
+
+    // Dedicated Testimonials Visibility Observer to ONLY scroll when user visits
+    let testiObserver;
+    let currentThreshold = window.innerWidth > 1024 ? 0.1 : 0.65;
+
+    const setupTestiObserver = () => {
+        if (testiObserver) testiObserver.disconnect();
+        testiObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                isTestiVisible = entry.isIntersecting;
+                if (isTestiVisible) {
+                    startTestiAutoSlide();
+                } else {
+                    stopTestiAutoSlide();
+                }
+            });
+        }, { threshold: currentThreshold });
+        testiObserver.observe(testimonialsCarousel);
+    };
+
+    setupTestiObserver();
+
+    window.addEventListener('resize', () => {
+        const newThreshold = window.innerWidth > 1024 ? 0.1 : 0.65;
+        if (currentThreshold !== newThreshold) {
+            currentThreshold = newThreshold;
+            setupTestiObserver();
+        }
+    });
 }
 
 // ── Mobile Menu Toggle ──

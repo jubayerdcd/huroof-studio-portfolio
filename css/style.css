@@ -440,6 +440,12 @@ section {
     font-size: 1.5rem;
     font-weight: 500;
     color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+}
+
+.social-proof:hover {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.85);
 }
 
 .social-proof img {
@@ -759,6 +765,34 @@ section {
     width: 100%;
 }
 
+#Highlights .carousel-controls {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin-top: 25px;
+    width: 100%;
+}
+
+#Highlights .carousel-indicators {
+    display: none !important;
+}
+
+#Highlights .carousel-container {
+    scroll-snap-type: none;
+}
+
+#testimonials .carousel-controls {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin-top: 25px;
+    width: 100%;
+}
+
+#testimonials .carousel-container {
+    scroll-snap-type: none;
+}
+
 .carousel-indicators {
     display: flex;
     gap: 12px;
@@ -766,32 +800,47 @@ section {
 }
 
 .carousel-arrows {
-    position: absolute;
-    right: 0;
     display: flex;
-    gap: 10px;
+    gap: 16px;
+    position: static;
 }
 
 .arrow-btn {
-    background: none;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.4);
     color: var(--white);
-    width: 32px;
-    height: 32px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-size: 1rem;
     padding: 0;
-    line-height: 1;
+}
+
+.arrow-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    transition: transform 0.2s ease;
+    display: block;
 }
 
 .arrow-btn:hover {
     border-color: var(--gold);
     color: var(--gold);
+}
+
+.arrow-btn#nextCard:hover svg,
+.arrow-btn#nextTestiCard:hover svg {
+    transform: translateX(2px);
+}
+
+.arrow-btn#prevCard:hover svg,
+.arrow-btn#prevTestiCard:hover svg {
+    transform: translateX(-2px);
 }
 
 .carousel-indicators .dot {
